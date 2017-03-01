@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import alb.util.log.Log;
@@ -15,7 +16,7 @@ import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
 
 @ManagedBean(name = "user")
-@RequestScoped
+@SessionScoped
 public class BeanUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +26,7 @@ public class BeanUser implements Serializable {
 	private String login;
 	private String email;
 	private String password;
+	private String repeatPassword;
 	private Boolean isAdmin;
 	private UserStatus status;
 
@@ -80,6 +82,59 @@ public class BeanUser implements Serializable {
 		this.status = status;
 	}
 
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
+	}
+	
+	/**
+	 * Through this method the user is registered in the system.
+	 * @return String containing the next view to show
+	 */
+	public String signUp() {
+		
+		//If passwords are not equal.
+		if (!password.equals(repeatPassword)){
+			Log.info("The passwords must be equals");
+			return null;
+		}
+		UserService userService = Services.getUserService();
+		User user = null;
+		try {
+			user = userService.findLoggableUser(login);
+		} catch (BusinessException b) {
+			Log.info("Something ocurred when trying to sign up: "
+					+ b.getMessage());
+			return null;
+		}
+		//If user is already registered.
+		if (user != null){
+			Log.info("There exist a user registered with that login");
+			return null;
+		}
+		//Otherwise, save the user in the db.
+		User cloneUser = new User();
+		cloneUser.setEmail(email);
+		cloneUser.setLogin(login);
+		cloneUser.setPassword(password);
+		try {
+			userService.registerUser(cloneUser);
+		} catch (BusinessException b) {
+			Log.info("Something ocurred when trying to sign up: "
+					+ b.getMessage());
+		}
+		
+		return "exito";
+	
+	}
+
+	/**
+	 * Through this method the user is logged into the system.
+	 * @return String containing the next view to show
+	 */
 	public String signIn() {
 
 		UserService userService = Services.getUserService();
@@ -105,7 +160,7 @@ public class BeanUser implements Serializable {
 						.getSessionMap().get(new String("settings"));
 				settings.setUser(this);
 
-				return "EXITO";
+				return "exito";
 			}
 			//Otherwise
 			else{
@@ -117,13 +172,17 @@ public class BeanUser implements Serializable {
 		}
 	}
 
+	/**
+	 * Through this method the user is logged out of the system.
+	 * @return String containing the next view to show
+	 */
 	public String signOut() {
 		BeanSettings settings = (BeanSettings) FacesContext
 				.getCurrentInstance().getExternalContext().getSessionMap()
 				.get(new String("settings"));
 		//Invalidate session
 		settings.setUser(null);
-		return "EXITO";
+		return "exito";
 	}
 
 }

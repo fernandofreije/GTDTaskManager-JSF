@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<f:view locale="#{settings.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:panelGrid columns="2" styleClass="formTable">
+			  #{msgs.login} 
+			  <p:inputText value="#{user.login}" />
+			  #{msgs.email} 
+			  <p:inputText value="#{user.email}" />
+			  #{msgs.password} 
+			  <p:inputText value="#{user.password}" />
+			  #{msgs.repeatPassword} 
+			  <p:inputText value="#{user.repeatPassword}" />
+			</p:panelGrid>
+			<p:commandButton value="#{msgs.signUp}" action="#{user.signUp}" />
+		</h:form>
+	</h:body>
+</f:view>
+</html>
