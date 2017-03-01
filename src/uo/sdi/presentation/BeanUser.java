@@ -7,6 +7,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import alb.util.log.Log;
+import uo.sdi.business.Services;
+import uo.sdi.business.UserService;
+import uo.sdi.business.exception.BusinessException;
+import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
 
 @ManagedBean(name = "user")
@@ -73,6 +78,52 @@ public class BeanUser implements Serializable {
 
 	public void setStatus(UserStatus status) {
 		this.status = status;
+	}
+
+	public String signIn() {
+
+		UserService userService = Services.getUserService();
+		User user = null;
+		try {
+			user = userService.findLoggableUser(login);
+		} catch (BusinessException b) {
+			Log.info("Something ocurred when trying to sign in: "
+					+ b.getMessage());
+		}
+		//If the user exists
+		if (user != null) {
+			//If the password is correct
+			if (user.getPassword().equals(password)) {
+				this.id = user.getId();
+				this.login = user.getLogin();
+				this.email = user.getEmail();
+				this.status = user.getStatus();
+				this.isAdmin = user.getIsAdmin();
+
+				BeanSettings settings = (BeanSettings) FacesContext
+						.getCurrentInstance().getExternalContext()
+						.getSessionMap().get(new String("settings"));
+				settings.setUser(this);
+
+				return "EXITO";
+			}
+			//Otherwise
+			else{
+				return null;
+			}
+		} else {
+
+			return null;
+		}
+	}
+
+	public String signOut() {
+		BeanSettings settings = (BeanSettings) FacesContext
+				.getCurrentInstance().getExternalContext().getSessionMap()
+				.get(new String("settings"));
+		//Invalidate session
+		settings.setUser(null);
+		return "EXITO";
 	}
 
 }
