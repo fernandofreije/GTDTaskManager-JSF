@@ -8,5 +8,6 @@ public interface UserService {
 	public Long registerUser(User user) throws BusinessException;
 	public void updateUserDetails(User user) throws BusinessException;
 	public User findLoggableUser(String login, String password) throws BusinessException;
+	User findLoggableUser(String login) throws BusinessException;
 
 }

@@ -32,7 +32,7 @@ public class UpdateUserDetailsCommand implements Command<Void> {
 			UserCheck.notRepeatedLogin( user );
 		}
 
-		uDao.update( user );
+		uDao.update(user);
 		return null;
 	}
 
