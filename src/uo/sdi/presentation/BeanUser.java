@@ -99,7 +99,7 @@ public class BeanUser implements Serializable {
 		//If passwords are not equal.
 		if (!password.equals(repeatPassword)){
 			Log.info("The passwords must be equals");
-			return null;
+			return "error";
 		}
 		UserService userService = Services.getUserService();
 		User user = null;
@@ -108,12 +108,12 @@ public class BeanUser implements Serializable {
 		} catch (BusinessException b) {
 			Log.info("Something ocurred when trying to sign up: "
 					+ b.getMessage());
-			return null;
+			return "error";
 		}
 		//If user is already registered.
 		if (user != null){
 			Log.info("There exist a user registered with that login");
-			return null;
+			return "error";
 		}
 		//Otherwise, save the user in the db.
 		User cloneUser = new User();
@@ -164,11 +164,11 @@ public class BeanUser implements Serializable {
 			}
 			//Otherwise
 			else{
-				return null;
+				return "error";
 			}
 		} else {
 
-			return null;
+			return "error";
 		}
 	}
 
@@ -181,7 +181,9 @@ public class BeanUser implements Serializable {
 				.getCurrentInstance().getExternalContext().getSessionMap()
 				.get(new String("settings"));
 		//Invalidate session
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		settings.setUser(null);
+		
 		return "exito";
 	}
 
