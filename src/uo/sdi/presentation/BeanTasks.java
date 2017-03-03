@@ -2,6 +2,8 @@ package uo.sdi.presentation;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+
 import alb.util.log.Log;
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
@@ -20,6 +22,17 @@ public class BeanTasks {
 	}
 
 	public BeanTasks() {
+	}
+	
+	@ManagedProperty(value = "#{task}")
+	private BeanTask task;
+
+	public BeanTask getTask() {
+		return task;
+	}
+
+	public void setTask(BeanTask task) {
+		this.task = task;
 	}
 
 	public String getListOfTasks(PseudoList pseudolist) {
@@ -68,14 +81,6 @@ public class BeanTasks {
 			}
 		}
 		return null;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public List<Task> getListOfTasks() {
