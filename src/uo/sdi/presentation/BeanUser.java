@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import uo.sdi.business.AdminService;
 import uo.sdi.business.Services;
@@ -17,33 +19,16 @@ import alb.util.log.Log;
 
 @ManagedBean(name = "user")
 @SessionScoped
-public class BeanUser extends User implements Serializable {
+public class BeanUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private String login;
+	private String email;
+	private String password;
 	private String repeatPassword;
+	
 	private Boolean isSignedIn;
-
-	private FacesContext context = FacesContext.getCurrentInstance();
-	private ResourceBundle msgs = context.getApplication().getResourceBundle(
-			context, "msgs");
-	
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
-	}
-	
-	public Boolean getIsSignedIn() {
-		return isSignedIn;
-	}
-
-	public void setIsSignedIn(Boolean isSignedIn) {
-		this.isSignedIn = isSignedIn;
-	}
 
 	/**
 	 * Through this method the user is registered in the system.
@@ -80,110 +65,105 @@ public class BeanUser extends User implements Serializable {
 		} catch (BusinessException b) {
 			Log.info("Something ocurred when trying to sign up: "
 					+ b.getMessage());
+			return "error";
 		}
 		
 		return "exito";
 	
-	}
-
-	/**
-	 * Through this method the user is logged into the system.
-	 * @return String containing the next view to show
-	 */
-	public String signIn() {
-
-		UserService userService = Services.getUserService();
-		User user = null;
-		try {
-			user = userService.findLoggableUser(getLogin());
-		} catch (BusinessException b) {
-			Log.info("Something ocurred when trying to sign in: "
-					+ b.getMessage());
-		}
-		//If the user exists
-		if (user != null) {
-			//If the password is correct
-			if (user.getPassword().equals(getPassword())) {
-				setId(user.getId());
-				setLogin(user.getLogin());
-				setEmail(user.getEmail());
-				setStatus(user.getStatus());
-				setIsAdmin(user.getIsAdmin());
-				setIsSignedIn(true);
-				BeanSettings settings = (BeanSettings) FacesContext
-						.getCurrentInstance().getExternalContext()
-						.getSessionMap().get(new String("settings"));
-				settings.setUser(this);
-
-				return "exito";
-			}
-			//Otherwise
-			else{
-				return "error";
-			}
-		} else {
-
-			return "error";
-		}
 	}
 
 	/**
 	 * Through this method the user is logged out of the system.
 	 * @return String containing the next view to show
 	 */
-	public String signOut() {
-		BeanSettings settings = (BeanSettings) FacesContext
-				.getCurrentInstance().getExternalContext().getSessionMap()
-				.get(new String("settings"));
-		//Invalidate session
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		settings.setUser(null);
-		setIsSignedIn(false);
+	public String logout() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		session.invalidate();
 		return "exito";
 	}
 	
-	public String toggleActiveUser(long id){
+	public String toggleActiveUser(User user){
 		AdminService adminService = Services.getAdminService();
-		User user;
 		String action = "activating/deactivating";
 		try {
-			user = adminService.findUserById(id);
 			if(user.getStatus().equals(UserStatus.ENABLED)){
 				action = "deactivating";
-				adminService.disableUser(id);
+				adminService.disableUser(user.getId());
 			}	
 			else{
 				action = "activating";
-				adminService.enableUser(id);
+				adminService.enableUser(user.getId());
 			}			
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured %s "
 					+ "user with id: %d . Error: %s ",
-					action,id,e1.getMessage()));
+					action,user.getId(),e1.getMessage()));
 			return null;
 		}
 		
 		Log.info(String.format("%s user with id %d was sucessful",
-				action,id));
+				action,user.getId()));
 		return "exito";
 		
 	}
 	
-	public String deleteUser(long id){
+	public String deleteUser(User user){
 		AdminService service = Services.getAdminService();
 		
 		try {
-			service.deepDeleteUser(id);
+			service.deepDeleteUser(user.getId());
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured deleting user with id: %d . Error: %s ",
-					id,e1.getMessage()));
+					user.getId(),e1.getMessage()));
 			return null;
 		}
 		
 		Log.info(String.format("User with id %d was deleted sucessfully",
-				id));
+				user.getId()));
 		return "exito";
 		
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
+	}
+	
+	public Boolean getIsSignedIn() {
+		return isSignedIn;
+	}
+
+	public void setIsSignedIn(Boolean isSignedIn) {
+		this.isSignedIn = isSignedIn;
+	}
+	
 
 }
