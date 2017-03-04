@@ -32,6 +32,14 @@
 				<f:facet name="header">#{msgs.status}</f:facet>
 				#{u.status}
 			</h:column>
+			<h:column>
+				<f:facet name="header">#{msgs.eliminar}</f:facet>
+				<h:commandButton action="#{users.deleteUser}" value="#{msgs.eliminar}"
+					type="submit" inmediate="true">
+					<f:setPropertyActionListener target="#{users.user}" value="#{u}"></f:setPropertyActionListener>
+				</h:commandButton>
+			</h:column>
+
 		</h:dataTable>
 	</h:body>
 </f:view>
