@@ -16,10 +16,15 @@
 		<managed-bean-class>uo.sdi.presentation.BeanSettings</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+		<managed-bean>
+		<managed-bean-name>login</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanLogin</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>user</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanUser</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
 	<navigation-rule>
@@ -41,9 +46,14 @@
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{user.signIn}</from-action>
+			<from-action>#{login.login}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{login.login}</from-action>
+			<from-outcome>exitoAdmin</from-outcome>
+			<to-view-id>/panelAdmin.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

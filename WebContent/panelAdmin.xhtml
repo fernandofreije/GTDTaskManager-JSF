@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{settings.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+	</h:head>
+	<h:body>
+		<h:dataTable id="usersTable" value="#{users.users}" var="u"
+			styleClass="table table-striped" style="width:80%">
+			<h:column>
+				<f:facet name="header">#{msgs.id}</f:facet>
+				#{u.id}
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{msgs.login}</f:facet>
+				#{u.login}
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{msgs.email}</f:facet>
+				#{u.email}
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{msgs.isAdmin}</f:facet>
+				#{u.isAdmin}
+			</h:column>
+			<h:column>
+				<f:facet name="header">#{msgs.status}</f:facet>
+				#{u.status}
+			</h:column>
+		</h:dataTable>
+	</h:body>
+</f:view>
+</html>

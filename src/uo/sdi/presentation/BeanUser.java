@@ -1,10 +1,13 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -18,7 +21,7 @@ import uo.sdi.dto.types.UserStatus;
 import alb.util.log.Log;
 
 @ManagedBean(name = "user")
-@SessionScoped
+@RequestScoped
 public class BeanUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +33,7 @@ public class BeanUser implements Serializable {
 	
 	private Boolean isSignedIn;
 
+	
 	/**
 	 * Through this method the user is registered in the system.
 	 * @return String containing the next view to show

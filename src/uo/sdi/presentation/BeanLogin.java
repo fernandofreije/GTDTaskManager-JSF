@@ -19,18 +19,13 @@ import alb.util.log.Log;
 
 @ManagedBean(name = "login")
 @SessionScoped
-public class BeanLogin extends User implements Serializable {
+public class BeanLogin implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5L;
+	private String login;
+	private String password; 
 	private Boolean isSignedIn;
 	
-	public Boolean getIsSignedIn() {
-		return isSignedIn;
-	}
-
-	public void setIsSignedIn(Boolean isSignedIn) {
-		this.isSignedIn = isSignedIn;
-	}
 
 	public String login(){
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -44,17 +39,9 @@ public class BeanLogin extends User implements Serializable {
 					+ b.getMessage());
 		}
 		//If the user exists, session does not contain and user and is new
-		if (user != null && session.getAttribute("user")==null && session.isNew()) {
+		if (user != null && session.getAttribute("user")==null){ //&& session.isNew()) {
 			//If the password is correct
 			if (user.getPassword().equals(getPassword())) {
-				
-				//Initialize user
-				setId(user.getId());
-				setLogin(user.getLogin());
-				setEmail(user.getEmail());
-				setPassword(user.getPassword());
-				setIsAdmin(user.getIsAdmin());
-				setStatus(user.getStatus());
 				
 				//Move the user to session
 				session.setAttribute("user", user);
@@ -62,7 +49,7 @@ public class BeanLogin extends User implements Serializable {
 				
 				//If the user is admin
 				if (user.getIsAdmin())
-					return "adminPanel";
+					return "exitoAdmin";
 				//If the user is not admin
 				else
 					return "exito";
@@ -76,6 +63,36 @@ public class BeanLogin extends User implements Serializable {
 			setIsSignedIn(false);
 			return null;
 		}
+	}
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public Boolean getIsSignedIn() {
+		return isSignedIn;
+	}
+
+
+	public void setIsSignedIn(Boolean isSignedIn) {
+		this.isSignedIn = isSignedIn;
 	}
 	
 

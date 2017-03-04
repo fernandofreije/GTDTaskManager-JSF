@@ -11,11 +11,11 @@
 		<h:form>
 			<p:panelGrid columns="2" styleClass="formTable">
 			  #{msgs.login} 
-			  <p:inputText value="#{user.login}" />
+			  <p:inputText value="#{login.login}" />
 			  #{msgs.password} 
-			  <p:inputText value="#{user.password}" />
+			  <p:inputText value="#{login.password}" />
 			</p:panelGrid>
-			<p:commandButton value="#{msgs.signIn}" action="#{user.signIn}" />
+			<p:commandButton value="#{msgs.signIn}" action="#{login.login}" />
 		</h:form>
 	</h:body>
 </f:view>
