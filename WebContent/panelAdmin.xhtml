@@ -3,8 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
+<o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
@@ -38,7 +40,13 @@
 					<h:commandButton value="#{msgs.eliminar}"
 						action="#{users.deleteUser(u)}" />
 				</p:column>
-
+				<p:column>
+					<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
+					<h:commandButton rendered="#{u.status eq 'ENABLED'}"
+						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}" />
+					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
+						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" />
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</h:body>

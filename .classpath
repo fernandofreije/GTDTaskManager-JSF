@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="lib/dbcp-6.0.48.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-5.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/omnifaces-2.6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
