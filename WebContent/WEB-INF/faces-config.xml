@@ -26,6 +26,11 @@
 		<managed-bean-class>uo.sdi.presentation.BeanUsers</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>tasks</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanTasks</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
@@ -43,20 +48,22 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{login.login}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
 		<navigation-case>
 			<from-action>#{login.login}</from-action>
 			<from-outcome>exitoAdmin</from-outcome>
 			<to-view-id>/panelAdmin.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{login.login}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listaTareas.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
-		<navigation-rule>
+	
+	<navigation-rule>
 		<from-view-id>/panelAdmin.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{users.deleteUser}</from-action>
