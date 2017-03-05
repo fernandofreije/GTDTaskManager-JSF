@@ -22,8 +22,8 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>user</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.BeanUser</managed-bean-class>
+		<managed-bean-name>users</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanUsers</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
