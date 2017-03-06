@@ -44,7 +44,7 @@ public class BeanLogin implements Serializable {
 			if (user.getPassword().equals(getPassword())) {
 				
 				//Move the user to session
-				session.setAttribute("user", user);
+				session.setAttribute("LOGGEDIN_USER", user);
 				setIsSignedIn(true);
 				
 				//If the user is admin

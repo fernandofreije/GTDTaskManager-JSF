@@ -28,7 +28,7 @@ public class BeanTasks {
 	@PostConstruct
 	public void init(){
 		user = (User) FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap().get("user");
+				.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
 		
 	}
 
