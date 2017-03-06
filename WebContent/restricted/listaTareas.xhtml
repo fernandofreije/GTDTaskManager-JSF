@@ -11,6 +11,11 @@
 	</h:head>
 	<h:body>
 		<h:form>
+			<p:inputText id="task_to_add" value="#{task.title}" required="true" label="task_to_add"/>
+	        <p:watermark for="task_to_add" value="Add a new task" id="task_to_add_watermark" />
+			<p:commandButton value="Submit" id="task_to_add_button" actionListener="#{task.addTask}" styleClass="ui-priority-primary" />
+		</h:form>
+		<h:form>
 			<p:dataTable id="tasksTable" value="#{tasks.getListOfTasks(2)}" var="t"
 				styleClass="table table-striped" style="width:80%">
 				<p:column>
