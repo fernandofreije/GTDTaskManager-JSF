@@ -11,15 +11,15 @@
 		<h:form>
 			<p:panelGrid columns="2" styleClass="formTable">
 			  #{msgs.login} 
-			  <p:inputText value="#{users.login}" />
+			  <p:inputText value="#{user.login}" />
 			  #{msgs.email} 
-			  <p:inputText value="#{users.email}" />
+			  <p:inputText value="#{user.email}" />
 			  #{msgs.password} 
-			  <p:inputText value="#{users.password}" />
+			  <p:inputText value="#{user.password}" />
 			  #{msgs.repeatPassword} 
-			  <p:inputText value="#{users.repeatPassword}" />
+			  <p:inputText value="#{user.repeatPassword}" />
 			</p:panelGrid>
-			<p:commandButton value="#{msgs.signUp}" action="#{users.signUp}" />
+			<p:commandButton value="#{msgs.signUp}" action="#{user.signUp}" />
 		</h:form>
 	</h:body>
 </f:view>
