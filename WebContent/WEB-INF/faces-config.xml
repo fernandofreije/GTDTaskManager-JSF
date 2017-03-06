@@ -22,6 +22,16 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>user</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanUser</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>task</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanTask</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>users</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanUsers</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -43,7 +53,7 @@
 	<navigation-rule>
 		<from-view-id>/register.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{users.signUp}</from-action>
+			<from-action>#{user.signUp}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>

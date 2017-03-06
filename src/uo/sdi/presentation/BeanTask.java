@@ -14,6 +14,11 @@ import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 
+/**
+ * ManagedBean to manage the CRUD of tasks of the user logged in
+ * @author Pablo and Fernando
+ *
+ */
 @ManagedBean(name = "task")
 @RequestScoped
 public class BeanTask implements Serializable {

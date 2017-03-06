@@ -17,6 +17,11 @@ import uo.sdi.business.impl.util.FreijeyPabloUtil;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 
+/**
+ * ManagedBean to manage the listing of tasks of the user logged in
+ * @author Pablo and Fernando
+ *
+ */
 @ManagedBean(name = "tasks")
 @RequestScoped
 public class BeanTasks {
@@ -24,30 +29,17 @@ public class BeanTasks {
 	private User user;
 	private List<Task> listOfTasks;
 	private List<Task> listOfFinishedTasks;
+	public enum PseudoList {
+		Inbox, Hoy, Semana
+	}
 	
+	public BeanTasks() {
+	}
+
 	@PostConstruct
 	public void init(){
 		user = (User) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
-		
-	}
-
-	public enum PseudoList {
-		Inbox, Hoy, Semana
-	}
-
-	public BeanTasks() {
-	}
-	
-	@ManagedProperty(value = "#{task}")
-	private BeanTask task;
-
-	public BeanTask getTask() {
-		return task;
-	}
-
-	public void setTask(BeanTask task) {
-		this.task = task;
 	}
 
 	public List<Task> getListOfTasks(int pseudolist) {
