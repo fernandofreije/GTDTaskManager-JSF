@@ -13,7 +13,7 @@
 		<p:layout style="width:100%;height:100%;">
 		<p:layoutUnit position="west" size="250"
 				minSize="200" maxSize="400">
-				<h:form id = "menuForm">
+				<h:form>
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
@@ -30,13 +30,14 @@
 				</h:form>
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
-				<h:form id="addTaskForm">
+				<h:form>
 					<p:inputText id="task_to_add" value="#{task.title}" required="true"
 						label="task_to_add" />
 					<p:watermark for="task_to_add" value="Add a new task"
 						id="task_to_add_watermark" />
 					<p:commandButton value="Submit" id="task_to_add_button"
-						actionListener="#{task.addTask}" styleClass="ui-priority-primary" />
+						actionListener="#{task.addTask}" styleClass="ui-priority-primary" 
+						immediate="true" update=":listForm:tasksTable"/>
 				</h:form>
 				<h:form id="listForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}"
