@@ -11,20 +11,19 @@
 	</h:head>
 	<h:body>
 		<p:layout style="width:100%;height:100%;">
-		<p:layoutUnit position="west" size="250"
-				minSize="200" maxSize="400">
+			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
 				<h:form>
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
-								actionListener="#{tasks.setTasksInbox()}"
-								immediate="true" update=":listForm:tasksTable" />
+								actionListener="#{tasks.setTasksInbox()}" immediate="true"
+								update=":listForm:tasksTable" />
 							<p:menuitem value="#{msgs.today}"
-								actionListener="#{tasks.setTasksToday()}" 
-								immediate="true" update=":listForm:tasksTable"/>
+								actionListener="#{tasks.setTasksToday()}" immediate="true"
+								update=":listForm:tasksTable" />
 							<p:menuitem value="#{msgs.week}"
-								actionListener="#{tasks.setTasksWeek()}" 
-								immediate="true" update=":listForm:tasksTable"/>
+								actionListener="#{tasks.setTasksWeek()}" immediate="true"
+								update=":listForm:tasksTable" />
 						</p:submenu>
 					</p:menu>
 				</h:form>
@@ -37,11 +36,11 @@
 						id="task_to_add_watermark" />
 					<p:commandButton value="Submit" id="task_to_add_button"
 						actionListener="#{task.addTask}" styleClass="ui-priority-primary" 
-						immediate="true" update=":listForm:tasksTable"/>
+						update=":listForm:tasksTable"/>
 				</h:form>
 				<h:form id="listForm">
-					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}"
-						var="t" styleClass="table table-striped" style="width:80%">
+					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
+						styleClass="table table-striped" style="width:80%">
 						<p:column headerText="#{msgs.title}">
 							#{t.title}
 						</p:column>
@@ -57,9 +56,9 @@
 					</p:dataTable>
 				</h:form>
 			</p:layoutUnit>
-			
-			
-			
+
+
+
 		</p:layout>
 	</h:body>
 </f:view>
