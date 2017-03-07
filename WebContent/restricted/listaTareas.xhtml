@@ -16,13 +16,13 @@
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
-								actionListener="#{tasks.setTasksInbox()}" immediate="true"
+								actionListener="#{tasks.setTasksInbox()}" 
 								update=":listForm:tasksTable" />
 							<p:menuitem value="#{msgs.today}"
-								actionListener="#{tasks.setTasksToday()}" immediate="true"
+								actionListener="#{tasks.setTasksToday()}" 
 								update=":listForm:tasksTable" />
 							<p:menuitem value="#{msgs.week}"
-								actionListener="#{tasks.setTasksWeek()}" immediate="true"
+								actionListener="#{tasks.setTasksWeek()}" 
 								update=":listForm:tasksTable" />
 						</p:submenu>
 					</p:menu>
