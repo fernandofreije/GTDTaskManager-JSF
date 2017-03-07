@@ -9,15 +9,18 @@
 	</h:head>
 	<h:body>
 		<h:form>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" />
 			<p:panelGrid columns="2" styleClass="formTable">
-			  #{msgs.login} 
-			  <p:inputText value="#{user.login}" />
-			  #{msgs.email} 
-			  <p:inputText value="#{user.email}" />
-			  #{msgs.password} 
-			  <p:inputText value="#{user.password}" />
-			  #{msgs.repeatPassword} 
-			  <p:inputText value="#{user.repeatPassword}" />
+			  <h:outputLabel value="#{msg.login}" />
+			  <p:inputText value="#{user.login}" label="Login" required="true"/>
+			   <h:outputLabel value="#{msg.email}" /> 
+			  <p:inputText value="#{user.email}"  label="Email" required="true" />
+			   <h:outputLabel for="pwd1" value="#{msg.password}" />  
+			  <p:password id="pwd1" label="Password" value="#{user.password}" 
+			  required="true" feedback="true" match="pwd2"/>
+			 <h:outputLabel for="pwd2" value="#{msg.repeatPassword}" /> 
+			  <p:password id="pwd2" label="Repeated password" value="#{user.repeatPassword}"  
+			  required="true" feedback="true"/>
 			</p:panelGrid>
 			<p:commandButton value="#{msgs.signUp}" action="#{user.signUp}" />
 		</h:form>
