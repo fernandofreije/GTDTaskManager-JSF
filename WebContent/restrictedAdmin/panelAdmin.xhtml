@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 <o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
@@ -12,33 +11,22 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="formUsers">
 			<p:dataTable id="usersTable" value="#{users.users}" var="u"
-				styleClass="table table-striped" style="width:80%">
-				<p:column>
-					<f:facet name="header">#{msgs.id}</f:facet>
-				#{u.id}
-			</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.login}</f:facet>
-				#{u.login}
-			</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.email}</f:facet>
-				#{u.email}
-			</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.isAdmin}</f:facet>
-				#{u.isAdmin}
-			</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.status}</f:facet>
-				#{u.status}
-			</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.eliminar}</f:facet>
-					<h:commandButton value="#{msgs.eliminar}"
-						action="#{users.deleteUser(u)}" />
+				selection="#{users.selectedUsers}" rowKey="#{u.id}" styleClass="table table-striped"
+				style="margin-bottom:0">
+				<p:column selectionMode="multiple" style="width:16px; text-align:center"/>
+				<p:column headerText="#{msgs.id}">
+					<h:outputText value="#{u.id}" />
+				</p:column>
+				<p:column headerText="#{msgs.login}">
+					<h:outputText value="#{u.login}" />
+				</p:column>
+				<p:column headerText="#{msgs.isAdmin}">
+					<h:outputText value="#{u.isAdmin}" />
+				</p:column>
+				<p:column headerText="#{msgs.status}">
+					<h:outputText value="#{u.status}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
@@ -47,6 +35,10 @@
 					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
 						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" />
 				</p:column>
+				<f:facet name="footer">
+					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
+						action="#{users.deleteUsers()}" update=":formUsers:usersTable" />
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 	</h:body>

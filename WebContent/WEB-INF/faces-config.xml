@@ -76,7 +76,7 @@
 	<navigation-rule>
 		<from-view-id>/restrictedAdmin/panelAdmin.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{users.deleteUser}</from-action>
+			<from-action>#{users.deleteUsers}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restrictedAdmin/panelAdmin.xhtml</to-view-id>
 		</navigation-case>

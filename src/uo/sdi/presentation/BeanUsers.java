@@ -20,6 +20,7 @@ import uo.sdi.dto.types.UserStatus;
 public class BeanUsers {
 	
 	private List<User> users;
+	private List<User> selectedUsers;
 
 	public BeanUsers() {
 	}
@@ -63,6 +64,19 @@ public class BeanUsers {
 				user.getId()));
 		return "exito";
 	}
+	
+	public String deleteUsers(){
+		AdminService service = Services.getAdminService();
+		try {
+			for (User u : selectedUsers)
+				service.deepDeleteUser(u.getId());
+		} catch (BusinessException e1) {
+			Log.error(String.format("Some error occured deleting users"));
+			return null;
+		}
+		return "exito";
+	}
+	
 
 	public List<User> getUsers(){
 		AdminService adminService = Services.getAdminService();
@@ -77,5 +91,15 @@ public class BeanUsers {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	
+	
+	public List<User> getSelectedUsers() {
+		return selectedUsers;
+	}
+
+	public void setSelectedUsers(List<User> selectedUsers) {
+		this.selectedUsers = selectedUsers;
+	}
+
 	
 }
