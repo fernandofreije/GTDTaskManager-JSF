@@ -40,7 +40,11 @@
 				</h:form>
 				<h:form id="listForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
-						styleClass="table table-striped" style="width:80%">
+						styleClass="table table-striped" style="width:80%"
+						rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
 						<p:column headerText="#{msgs.title}">
 							#{t.title}
 						</p:column>
@@ -56,9 +60,6 @@
 					</p:dataTable>
 				</h:form>
 			</p:layoutUnit>
-
-
-
 		</p:layout>
 	</h:body>
 </f:view>
