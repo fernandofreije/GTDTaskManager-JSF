@@ -25,6 +25,17 @@ public class BeanUsers {
 	public BeanUsers() {
 	}
 	
+	public String resetDatabase(){
+		AdminService adminService = Services.getAdminService();
+		try {
+			adminService.resetDB();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "exito";
+	}
+	
 	public String toggleActiveUser(User user){
 		AdminService adminService = Services.getAdminService();
 		String action = "activating/deactivating";

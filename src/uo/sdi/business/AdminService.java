@@ -13,5 +13,7 @@ public interface AdminService {
 
 	public List<User> findAllUsers() throws BusinessException;
 	public User findUserById(Long id) throws BusinessException;
+	
+	public void resetDB() throws BusinessException;
 
 }

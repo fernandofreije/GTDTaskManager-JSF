@@ -38,6 +38,8 @@
 				<f:facet name="footer">
 					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
 						action="#{users.deleteUsers()}" update=":formUsers:usersTable" />
+					<p:commandButton process="usersTable" value="#{msgs.reset}"
+						action="#{users.resetDatabase()}" update=":formUsers:usersTable" />
 				</f:facet>
 			</p:dataTable>
 		</h:form>
