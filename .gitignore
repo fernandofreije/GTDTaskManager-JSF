@@ -2,9 +2,7 @@
 bin/
 tmp/
 build/
-data/test.properties
-data/test.log
-data/test.properties
+data/
 *.tmp
 *.bak
 *.swp
@@ -15,6 +13,7 @@ local.properties
 .recommenders
 
 .class
+
 
 # Eclipse Core
 .project

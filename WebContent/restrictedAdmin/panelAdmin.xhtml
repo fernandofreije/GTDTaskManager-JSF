@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 <o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
@@ -21,19 +20,27 @@
 				<p:column headerText="#{msgs.id}">
 					<h:outputText value="#{u.id}" />
 				</p:column>
-				<p:column headerText="#{msgs.login}">
+				<p:column sortBy="#{u.login}" headerText="#{msgs.login}">
 					<h:outputText value="#{u.login}" />
+				</p:column>
+				<p:column sortBy="#{u.email}" headerText="#{msgs.email}">
+					<h:outputText value="#{u.email}" />
 				</p:column>
 				<p:column headerText="#{msgs.isAdmin}">
 					<h:outputText value="#{u.isAdmin}" />
 				</p:column>
+				<p:column sortBy="#{u.status}" headerText="#{msgs.status}">
+					<h:outputText value="#{u.status}" />
+				</p:column>
 				<p:column>
 					<f:facet name="header" rendered="#{!u.isAdmin}">#{msgs.cambiarEstado}</f:facet>
-					
+
 					<h:commandButton rendered="#{u.status eq 'ENABLED'}"
-						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"  icon="fa fa-fw fa-close"/>
+						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
+						icon="fa fa-fw fa-close" />
 					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
-						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" icon="fa fa-fw fa-check"/>
+						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
+						icon="fa fa-fw fa-check" />
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
