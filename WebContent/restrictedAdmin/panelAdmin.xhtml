@@ -3,8 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	>
 
+<h:outputStylesheet name="WebContent/WEB-INF/lib/font-awesome.css">
 <o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
 	<h:head>
@@ -13,9 +15,10 @@
 	<h:body>
 		<h:form id="formUsers">
 			<p:dataTable id="usersTable" value="#{users.users}" var="u"
-				selection="#{users.selectedUsers}" rowKey="#{u.id}" styleClass="table table-striped"
-				style="margin-bottom:0">
-				<p:column selectionMode="multiple" style="width:16px; text-align:center"/>
+				selection="#{users.selectedUsers}" rowKey="#{u.id}"
+				styleClass="table table-striped" style="margin-bottom:0">
+				<p:column selectionMode="multiple"
+					style="width:16px; text-align:center" />
 				<p:column headerText="#{msgs.id}">
 					<h:outputText value="#{u.id}" />
 				</p:column>
@@ -25,15 +28,13 @@
 				<p:column headerText="#{msgs.isAdmin}">
 					<h:outputText value="#{u.isAdmin}" />
 				</p:column>
-				<p:column headerText="#{msgs.status}">
-					<h:outputText value="#{u.status}" />
-				</p:column>
 				<p:column>
-					<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
+					<f:facet name="header" rendered="#{!u.isAdmin}">#{msgs.cambiarEstado}</f:facet>
+					
 					<h:commandButton rendered="#{u.status eq 'ENABLED'}"
-						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}" />
+						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"  icon="fa fa-close"/>
 					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
-						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" />
+						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" icon="fa fa-check"/>
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
@@ -45,4 +46,5 @@
 		</h:form>
 	</h:body>
 </f:view>
+</h:outputStylesheet>
 </html>

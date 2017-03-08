@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;
@@ -21,7 +22,7 @@ import alb.util.log.Log;
  *
  */
 @ManagedBean(name = "tasks")
-@RequestScoped
+@SessionScoped
 public class BeanTasks {
 
 	private User user;
