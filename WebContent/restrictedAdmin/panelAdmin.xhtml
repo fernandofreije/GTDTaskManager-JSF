@@ -6,7 +6,6 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	>
 
-<h:outputStylesheet name="WebContent/WEB-INF/lib/font-awesome.css">
 <o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
 	<h:head>
@@ -32,9 +31,9 @@
 					<f:facet name="header" rendered="#{!u.isAdmin}">#{msgs.cambiarEstado}</f:facet>
 					
 					<h:commandButton rendered="#{u.status eq 'ENABLED'}"
-						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"  icon="fa fa-close"/>
+						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"  icon="fa fa-fw fa-close"/>
 					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
-						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" icon="fa fa-check"/>
+						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}" icon="fa fa-fw fa-check"/>
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
@@ -46,5 +45,4 @@
 		</h:form>
 	</h:body>
 </f:view>
-</h:outputStylesheet>
 </html>
