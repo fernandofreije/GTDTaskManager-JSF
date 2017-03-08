@@ -1,10 +1,11 @@
 package uo.sdi.business.impl.admin.command;
 
+import alb.util.date.DateUtil;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.Category;
+import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
 import uo.sdi.persistence.CategoryDao;
 import uo.sdi.persistence.Persistence;
 import uo.sdi.persistence.TaskDao;
@@ -34,18 +35,58 @@ public class ResetDBCommand implements Command<Void> {
 			user.setEmail("user"+i+"@mail.com");
 			Long id = uDao.save(user);
 			
+			Task task;
+			int daysToAdd = 1;
+			int totalTasks = 0;
+			
+			//10 tareas previstas a los 6 días siguientes.
+			for (long k=1; k<=10; k++){
+				task = new Task();
+				task.setTitle("Tarea " + k + " del usuario " + i);
+				if (k%2 == 0)
+					daysToAdd++;
+				task.setPlanned(DateUtil.addDays(DateUtil.today(), daysToAdd));
+				task.setUserId(id);
+				tDao.save(task);
+				totalTasks++;
+				
+			}
+			//10 tareas previstas para el día que se ejecuta la tarea.
+			for (long k=11; k<=20; k++){
+				task = new Task();
+				task.setTitle("Tarea " + k + " del usuario " + i);
+				task.setPlanned(DateUtil.tomorrow());
+				task.setUserId(id);
+				tDao.save(task);
+				totalTasks++;
+			}
+			
+			//3 categorías por usuario 
 			Category category;
 			for (long j=1; j <=3; j++){
 				category = new Category();
 				category.setId(j);
 				category.setName("categoría"+j);
 				category.setUserId(id);
-				cDao.save(category);
+				Long categoryId = cDao.save(category);
+				
+				int tasksPerCategory = 3;
+				if (j == 3) 
+					tasksPerCategory = 4;
+				
+				//10 tareas retrasadas y pertenecientes a la categoría 1 (3), 
+				//categoría 2 (3) y categoría 3 (4).
+				for (long k=1; k<=tasksPerCategory; k++){
+					task = new Task();
+					task.setTitle("Tarea " + totalTasks+k + " del usuario " + i + " de la categoría " + k);
+					task.setPlanned(DateUtil.yesterday());
+					task.setCategoryId(categoryId);
+					task.setUserId(id);
+					tDao.save(task);
+				}
 			}
 			
-		}
-
-		
+		}	
 		return null;
 	}
 
