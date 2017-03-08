@@ -11,14 +11,14 @@
 		<h:form>
 		<p:messages id="messages" showDetail="true" autoUpdate="true" />
 			<p:panelGrid columns="2" styleClass="formTable">
-			  <h:outputLabel value="#{msg.login}" />
+			  <h:outputLabel value="#{msgs.login}" />
 			  <p:inputText value="#{user.login}" label="Login" required="true"/>
-			   <h:outputLabel value="#{msg.email}" /> 
+			   <h:outputLabel value="#{msgs.email}" /> 
 			  <p:inputText value="#{user.email}"  label="Email" required="true" />
-			   <h:outputLabel for="pwd1" value="#{msg.password}" />  
+			   <h:outputLabel for="pwd1" value="#{msgs.password}" />  
 			  <p:password id="pwd1" label="Password" value="#{user.password}" 
 			  required="true" feedback="true" match="pwd2"/>
-			 <h:outputLabel for="pwd2" value="#{msg.repeatPassword}" /> 
+			 <h:outputLabel for="pwd2" value="#{msgs.repeatPassword}" /> 
 			  <p:password id="pwd2" label="Repeated password" value="#{user.repeatPassword}"  
 			  required="true" feedback="true"/>
 			</p:panelGrid>
