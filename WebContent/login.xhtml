@@ -10,10 +10,10 @@
 	<h:body>
 		<h:form>
 			<p:panelGrid columns="2" styleClass="formTable">
-			  #{msgs.login} 
-			  <p:inputText value="#{login.login}" />
-			  #{msgs.password} 
-			  <p:password value="#{login.password}" />
+			  <h:outputLabel for="login" value="#{msgs.login}" />
+			  <p:inputText id="login" value="#{login.login}" />
+			  <h:outputLabel for="pwd" value="#{msgs.password}" />  
+			  <p:password id="pwd" value="#{login.password}" />
 			</p:panelGrid>
 			<p:commandButton value="#{msgs.signIn}" action="#{login.login}" />
 		</h:form>

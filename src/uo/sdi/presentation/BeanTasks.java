@@ -3,9 +3,13 @@ package uo.sdi.presentation;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+<<<<<<< HEAD
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+=======
+>>>>>>> 0598cc347620c6decbfdcff9f21fa94db7d0ac3e
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;

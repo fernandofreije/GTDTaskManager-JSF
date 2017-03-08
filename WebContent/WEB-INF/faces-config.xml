@@ -22,6 +22,11 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>tasks</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanTasks</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>user</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanUser</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -36,11 +41,15 @@
 		<managed-bean-class>uo.sdi.presentation.BeanUsers</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+<<<<<<< HEAD
 	<managed-bean>
 		<managed-bean-name>tasks</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanTasks</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+=======
+	
+>>>>>>> 0598cc347620c6decbfdcff9f21fa94db7d0ac3e
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
