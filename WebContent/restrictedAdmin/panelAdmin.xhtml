@@ -11,12 +11,16 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
+		
+		
 		<h:form id="formUsers">
+			<h:messages styleClass="errorMessage" autoUpdate="true"/>
 			<p:dataTable id="usersTable" value="#{users.users}" var="u"
 				selection="#{users.selectedUsers}" rowKey="#{u.id}"
 				styleClass="table table-striped" style="margin-bottom:0">
 				<p:column selectionMode="multiple"
 					style="width:16px; text-align:center" />
+
 				<p:column headerText="#{msgs.id}">
 					<h:outputText value="#{u.id}" />
 				</p:column>
@@ -33,18 +37,20 @@
 					<h:outputText value="#{u.status}" />
 				</p:column>
 				<p:column>
-					<f:facet name="header" rendered="#{!u.isAdmin}">#{msgs.cambiarEstado}</f:facet>
+					<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
 
-					<h:commandButton rendered="#{u.status eq 'ENABLED'}"
+					<h:commandButton rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
 						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
 						icon="fa fa-fw fa-close" />
-					<h:commandButton rendered="#{u.status eq 'DISABLED'}"
+					<h:commandButton
+						rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
 						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
 						icon="fa fa-fw fa-check" />
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton process="usersTable" value="#{msgs.eliminar}"
-						action="#{users.deleteUsers()}" update=":formUsers:usersTable" />
+					<p:commandButton id="deleteButton" process="usersTable"
+						value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
+						update=":formUsers" />
 					<p:commandButton process="usersTable" value="#{msgs.reset}"
 						action="#{users.resetDatabase()}" update=":formUsers:usersTable" />
 				</f:facet>

@@ -1,8 +1,16 @@
 package uo.sdi.presentation;
 
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.primefaces.event.SelectEvent;
+
 import alb.util.log.Log;
 import uo.sdi.business.AdminService;
 import uo.sdi.business.Services;
@@ -20,10 +28,14 @@ import uo.sdi.dto.types.UserStatus;
 @RequestScoped
 public class BeanUsers {
 
+	private User userSession;
 	private List<User> users;
 	private List<User> selectedUsers;
 
 	public BeanUsers() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		this.userSession = (User) session.getAttribute("LOGGEDIN_USER");
 	}
 
 	public String resetDatabase() {
@@ -41,12 +53,20 @@ public class BeanUsers {
 		AdminService adminService = Services.getAdminService();
 		String action = "activating/deactivating";
 		try {
-			if (user.getStatus().equals(UserStatus.ENABLED)) {
-				action = "deactivating";
-				adminService.disableUser(user.getId());
+			// The user can not change the state to himself
+			if (user.equals(userSession)) {
+				FacesMessage message = new FacesMessage(
+						"Error al cambiar estado a si mismo");
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, message);
 			} else {
-				action = "activating";
-				adminService.enableUser(user.getId());
+				if (user.getStatus().equals(UserStatus.ENABLED)) {
+					action = "deactivating";
+					adminService.disableUser(user.getId());
+				} else {
+					action = "activating";
+					adminService.enableUser(user.getId());
+				}
 			}
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured %s "
@@ -64,7 +84,16 @@ public class BeanUsers {
 	public String deleteUser(User user) {
 		AdminService service = Services.getAdminService();
 		try {
-			service.deepDeleteUser(user.getId());
+			// The user can not delete to himself
+			if (user.equals(userSession)) {
+				FacesMessage message = new FacesMessage(
+						"Error al borrarse a si mismo");
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null, message);
+			} else {
+				service.deepDeleteUser(user.getId());
+			}
+
 		} catch (BusinessException e1) {
 			Log.error(String
 					.format("Some error occured deleting user with id: %d . Error: %s ",
@@ -80,22 +109,32 @@ public class BeanUsers {
 	public String deleteUsers() {
 		AdminService service = Services.getAdminService();
 		try {
-			for (User u : selectedUsers)
-				service.deepDeleteUser(u.getId());
+			for (User u : selectedUsers){
+				// The user can not delete to himself
+				if (u.equals(userSession)){
+					FacesMessage message = new FacesMessage(
+							"Error al borrarse a si mismo");
+					FacesContext context = FacesContext.getCurrentInstance();
+					context.addMessage(null, message);
+				}
+				else{
+					service.deepDeleteUser(u.getId());
+				}
+			}
+				
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured deleting users"));
 			return null;
 		}
-		return "exito";
+		return null;
 	}
 
 	public List<User> getUsers() {
-		if (users == null) {
-			AdminService adminService = Services.getAdminService();
-			try {
-				users = adminService.findAllUsers();
-			} catch (BusinessException e) {
-			}
+		AdminService adminService = Services.getAdminService();
+		try {
+			users = adminService.findAllUsers();
+		} catch (BusinessException e) {
+
 		}
 		return users;
 	}
