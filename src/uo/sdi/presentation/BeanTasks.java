@@ -28,6 +28,7 @@ public class BeanTasks {
 	private List<Task> listOfTasks;
 	private List<Task> listOfFinishedTasks;
 	private List<Task> selectedTasks;
+	private String currentList;
 
 	public BeanTasks() {
 	}
@@ -43,6 +44,7 @@ public class BeanTasks {
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
 		try {
+			currentList = "inbox";
 			listaTareas = taskService.findInboxTasksByUserId(user.getId());
 			List<Task> listaTareasTerminadasInbox=taskService.
 					findFinishedInboxTasksByUserId(user.getId());
@@ -57,6 +59,7 @@ public class BeanTasks {
 	}
 	
 	public void setTasksToday() {
+		currentList = "today";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
 		try {
@@ -70,6 +73,7 @@ public class BeanTasks {
 	}
 	
 	public void setTasksWeek() {
+		currentList = "week";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
 		try {
@@ -88,8 +92,17 @@ public class BeanTasks {
 			for (Task t:selectedTasks){
 				taskService.markTaskAsFinished(t.getId());
 			}
+			forceUpdateList();
 		} catch (BusinessException e) {
 			Log.error(e);
+		}
+	}
+	
+	public void forceUpdateList(){
+		switch (currentList){
+		case "inbox" : setTasksInbox();break;
+		case "today" : setTasksToday();break;
+		case "week" : setTasksWeek();break;
 		}
 	}
 	

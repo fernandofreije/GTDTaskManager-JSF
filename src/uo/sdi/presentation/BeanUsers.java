@@ -2,21 +2,18 @@ package uo.sdi.presentation;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.event.SelectEvent;
-
-import alb.util.log.Log;
 import uo.sdi.business.AdminService;
 import uo.sdi.business.Services;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
+import alb.util.log.Log;
 
 /**
  * ManagedBean to manage the users from the role of the administrator
@@ -31,6 +28,7 @@ public class BeanUsers {
 	private User userSession;
 	private List<User> users;
 	private List<User> selectedUsers;
+
 
 	public BeanUsers() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()

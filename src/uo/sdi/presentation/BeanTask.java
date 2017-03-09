@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;
@@ -29,6 +30,9 @@ public class BeanTask implements Serializable {
 	private String title, comments;
 	private Date created, planned, finished;
 	private Long categoryId, userId;
+
+	@ManagedProperty(value="#{tasks}")
+    private BeanTasks tasks;
 
 	public BeanTask() {
 	}
@@ -64,6 +68,7 @@ public class BeanTask implements Serializable {
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
+			tasks.forceUpdateList();
 		} catch (BusinessException e) {
 			return null;
 		}
@@ -95,17 +100,6 @@ public class BeanTask implements Serializable {
 		}
 
 		return "exito";
-	}
-
-	public String finishTask() {
-		// Mark the task as finished
-		TaskService taskService = Services.getTaskService();
-		try {
-			taskService.markTaskAsFinished(getId());
-		} catch (BusinessException e1) {
-			return null;
-		}
-		return "exito";	
 	}
 
 	public User getUser() {
@@ -178,6 +172,14 @@ public class BeanTask implements Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public BeanTasks getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(BeanTasks tasks) {
+		this.tasks = tasks;
 	}
 
 
