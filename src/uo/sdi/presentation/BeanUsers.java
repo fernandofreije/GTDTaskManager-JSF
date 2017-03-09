@@ -44,27 +44,19 @@ public class BeanUsers {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "exito";
+		return null;
 	}
 
 	public String toggleActiveUser(User user) {
 		AdminService adminService = Services.getAdminService();
 		String action = "activating/deactivating";
 		try {
-			// The user can not change the state to himself
-			if (user.equals(userSession)) {
-				FacesMessage message = new FacesMessage(
-						"Error al cambiar estado a si mismo");
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, message);
+			if (user.getStatus().equals(UserStatus.ENABLED)) {
+				action = "deactivating";
+				adminService.disableUser(user.getId());
 			} else {
-				if (user.getStatus().equals(UserStatus.ENABLED)) {
-					action = "deactivating";
-					adminService.disableUser(user.getId());
-				} else {
-					action = "activating";
-					adminService.enableUser(user.getId());
-				}
+				action = "activating";
+				adminService.enableUser(user.getId());
 			}
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured %s "
@@ -75,7 +67,7 @@ public class BeanUsers {
 
 		Log.info(String.format("%s user with id %d was sucessful", action,
 				user.getId()));
-		return "exito";
+		return null;
 
 	}
 
@@ -85,7 +77,7 @@ public class BeanUsers {
 			// The user can not delete to himself
 			if (user.equals(userSession)) {
 				FacesMessage message = new FacesMessage(
-						"Error al borrarse a si mismo");
+						"No se puede borrar a si mismo");
 				FacesContext context = FacesContext.getCurrentInstance();
 				context.addMessage(null, message);
 			} else {
@@ -101,25 +93,24 @@ public class BeanUsers {
 
 		Log.info(String.format("User with id %d was deleted sucessfully",
 				user.getId()));
-		return "exito";
+		return null;
 	}
 
 	public String deleteUsers() {
 		AdminService service = Services.getAdminService();
 		try {
-			for (User u : selectedUsers){
+			for (User u : selectedUsers) {
 				// The user can not delete to himself
-				if (u.equals(userSession)){
+				if (u.equals(userSession)) {
 					FacesMessage message = new FacesMessage(
-							"Error al borrarse a si mismo");
+							"No se puede borrar a si mismo");
 					FacesContext context = FacesContext.getCurrentInstance();
 					context.addMessage(null, message);
-				}
-				else{
+				} else {
 					service.deepDeleteUser(u.getId());
 				}
 			}
-				
+
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured deleting users"));
 			return null;

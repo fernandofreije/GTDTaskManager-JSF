@@ -11,51 +11,72 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		
-		
-		<h:form id="formUsers">
-			<h:messages styleClass="errorMessage" autoUpdate="true"/>
-			<p:dataTable id="usersTable" value="#{users.users}" var="u"
-				selection="#{users.selectedUsers}" rowKey="#{u.id}"
-				styleClass="table table-striped" style="margin-bottom:0">
-				<p:column selectionMode="multiple"
-					style="width:16px; text-align:center" />
+		<p:layout style="width:100%;height:100%;">
+			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
+				<h:form id ="formMenu">
+					<p:menu toggleable="true">
+						<p:submenu label="#{msgs.cambiarIdioma}">
+							<p:menuitem value="#{msgs.enlaceIdiomaES}"
+								actionListener="#{settings.setSpanish}" update=":formMenu: :formUsers" >
+							</p:menuitem>
+							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+								actionListener="#{settings.setEnglish}" update=":formMenu: :formUsers" >
+							</p:menuitem>
+							</p:submenu>
+						<p:submenu label="#{login.login}">
+							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
+								icon="fa fa-sign-out" />
+						</p:submenu>
+					</p:menu>
+				</h:form>
+			</p:layoutUnit>
+			<p:layoutUnit position="center">
+				<h:form id="formUsers">
+					<p:messages styleClass="errorMessage" />
+					<p:dataTable id="usersTable" value="#{users.users}" var="u"
+						selection="#{users.selectedUsers}" rowKey="#{u.id}"
+						styleClass="table table-striped" style="margin-bottom:0">
+						<p:column selectionMode="multiple"
+							style="width:16px; text-align:center" />
 
-				<p:column headerText="#{msgs.id}">
-					<h:outputText value="#{u.id}" />
-				</p:column>
-				<p:column sortBy="#{u.login}" headerText="#{msgs.login}">
-					<h:outputText value="#{u.login}" />
-				</p:column>
-				<p:column sortBy="#{u.email}" headerText="#{msgs.email}">
-					<h:outputText value="#{u.email}" />
-				</p:column>
-				<p:column headerText="#{msgs.isAdmin}">
-					<h:outputText value="#{u.isAdmin}" />
-				</p:column>
-				<p:column sortBy="#{u.status}" headerText="#{msgs.status}">
-					<h:outputText value="#{u.status}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
+						<p:column headerText="#{msgs.id}">
+							<h:outputText value="#{u.id}" />
+						</p:column>
+						<p:column sortBy="#{u.login}" headerText="#{msgs.login}">
+							<h:outputText value="#{u.login}" />
+						</p:column>
+						<p:column sortBy="#{u.email}" headerText="#{msgs.email}">
+							<h:outputText value="#{u.email}" />
+						</p:column>
+						<p:column headerText="#{msgs.isAdmin}">
+							<h:outputText value="#{u.isAdmin}" />
+						</p:column>
+						<p:column sortBy="#{u.status}" headerText="#{msgs.status}">
+							<h:outputText value="#{u.status}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
 
-					<h:commandButton rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
-						value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
-						icon="fa fa-fw fa-close" />
-					<h:commandButton
-						rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
-						value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
-						icon="fa fa-fw fa-check" />
-				</p:column>
-				<f:facet name="footer">
-					<p:commandButton id="deleteButton" process="usersTable"
-						value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
-						update=":formUsers" />
-					<p:commandButton process="usersTable" value="#{msgs.reset}"
-						action="#{users.resetDatabase()}" update=":formUsers:usersTable" />
-				</f:facet>
-			</p:dataTable>
-		</h:form>
+							<h:commandButton
+								rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
+								value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
+								icon="fa fa-fw fa-close" />
+							<h:commandButton
+								rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
+								value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
+								icon="fa fa-fw fa-check" />
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton id="deleteButton" process="usersTable"
+								value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
+								update=":formUsers" />
+							<p:commandButton process="usersTable" value="#{msgs.reset}"
+								action="#{users.resetDatabase()}" update=":formUsers" />
+						</f:facet>
+					</p:dataTable>
+				</h:form>
+			</p:layoutUnit>
+		</p:layout>
 	</h:body>
 </f:view>
 </html>
