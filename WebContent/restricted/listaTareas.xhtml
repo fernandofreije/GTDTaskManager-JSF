@@ -10,20 +10,20 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		<p:layout id="listlayout" style="width:100%;height:100%;">
+		<p:layout style="width:100%;height:100%;">
 			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
 				<h:form>
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
 								actionListener="#{tasks.setTasksInbox()}" 
-								update=":listForm:tasksTable" />
+								update=":listTasksForm:tasksTable" />
 							<p:menuitem value="#{msgs.today}"
 								actionListener="#{tasks.setTasksToday()}" 
-								update=":listForm:tasksTable" />
+								update=":listTasksForm:tasksTable" />
 							<p:menuitem value="#{msgs.week}"
 								actionListener="#{tasks.setTasksWeek()}" 
-								update=":listForm:tasksTable" />
+								update=":listTasksForm:tasksTable" />
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
@@ -46,18 +46,21 @@
 						label="task_to_add" />
 					<p:watermark for="task_to_add" value="Add a new task"
 						id="task_to_add_watermark" />
-					<p:commandButton value="Submit" id="task_to_add_button"
-						actionListener="#{task.addTask}" styleClass="ui-priority-primary" 
-						update=":listForm:tasksTable"/>
+					<p:commandButton value="Add" ajax="true" id="task_to_add_button"
+						actionListener="#{task.addTask()}" styleClass="ui-priority-primary" 
+						update="listTasksForm:tasksTable"/>
 				</h:form>
-				<h:form id="listForm">
+				<h:form id="listTasksForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%"
 						rows="8"
                         paginator="true"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
-                        {RowsPerPageDropdown}">
+                        {RowsPerPageDropdown}"
+                        selection="#{tasks.selectedTasks}" rowKey="#{t.id}">
+                        <p:column selectionMode="multiple"
+						style="width:16px; text-align:center" />
 						<p:column headerText="#{msgs.title}">
 							#{t.title}
 						</p:column>
@@ -71,6 +74,9 @@
 							#{t.planned}
 						</p:column>
 					</p:dataTable>
+					<p:commandButton ajax="true" value="Finalizar" id="task_to_finish_button"
+						actionListener="#{tasks.finishTasks()}" styleClass="ui-priority-primary" 
+						update="tasksTable" />
 				</h:form>
 			</p:layoutUnit>
 		</p:layout>

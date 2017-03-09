@@ -27,7 +27,8 @@ public class BeanTasks {
 	private User user;
 	private List<Task> listOfTasks;
 	private List<Task> listOfFinishedTasks;
-	
+	private List<Task> selectedTasks;
+
 	public BeanTasks() {
 	}
 
@@ -80,6 +81,18 @@ public class BeanTasks {
 			Log.error(e);
 		}
 	}
+	
+	public void finishTasks(){
+		TaskService taskService = Services.getTaskService();
+		try {	
+			for (Task t:selectedTasks){
+				taskService.markTaskAsFinished(t.getId());
+			}
+		} catch (BusinessException e) {
+			Log.error(e);
+		}
+	}
+	
 
 	public List<Task> getListOfTasks() {
 		return this.listOfTasks;
@@ -95,6 +108,14 @@ public class BeanTasks {
 
 	public void setListOfFinishedTasks(List<Task> listOfFinishedTasks) {
 		this.listOfFinishedTasks = listOfFinishedTasks;
+	}
+	
+	public List<Task> getSelectedTasks() {
+		return selectedTasks;
+	}
+
+	public void setSelectedTasks(List<Task> selectedTasks) {
+		this.selectedTasks = selectedTasks;
 	}
 
 }
