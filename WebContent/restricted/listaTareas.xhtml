@@ -58,20 +58,21 @@
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
                         {RowsPerPageDropdown}"
-                        selection="#{tasks.selectedTasks}" rowKey="#{t.id}">
+                        selection="#{tasks.selectedTasks}" rowKey="#{t.id}"
+                        editable="true" editMode="cell">
                         <p:column selectionMode="multiple"
 						style="width:16px; text-align:center" />
-						<p:column headerText="#{msgs.title}">
-							#{t.title}
+						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">
+							<h:outputText value="#{t.title}"/>
 						</p:column>
-							<p:column headerText="#{msgs.category}">
-							#{t.categoryId}
+						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
+							<h:outputText value="#{t.categoryId}"/>
 						</p:column>
-							<p:column headerText="#{msgs.created}">
-							#{t.created}
+						<p:column headerText="#{msgs.created}">
+							<h:outputText value="#{t.created}"/>
 						</p:column>
-							<p:column headerText="#{msgs.planned}">
-							#{t.planned}
+						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
+							<h:outputText value="#{t.planned}"/>
 						</p:column>
 					</p:dataTable>
 					<p:commandButton ajax="true" value="Finalizar" id="task_to_finish_button"

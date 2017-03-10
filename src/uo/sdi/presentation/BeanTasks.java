@@ -37,7 +37,8 @@ public class BeanTasks {
 	public void init(){
 		user = (User) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
-		setTasksInbox();
+		if (listOfTasks==null)
+			setTasksInbox();
 	}
 
 	public void setTasksInbox() {
