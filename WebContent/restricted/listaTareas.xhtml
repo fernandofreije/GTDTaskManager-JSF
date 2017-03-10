@@ -63,10 +63,17 @@
                         {RowsPerPageDropdown}"
                         selection="#{tasks.selectedTasks}" rowKey="#{t.id}"
                         editable="true" editMode="cell">
+                        <p:ajax event="cellEdit" listener="#{tasks.edit(t)}" 
+                        />
                         <p:column selectionMode="multiple"
 						style="width:16px; text-align:center" />
+						
 						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">
-							<h:outputText value="#{t.title}"/>
+							<p:cellEditor>
+                  				<f:facet name="output"><h:outputText value="#{t.title}"/></f:facet>
+                  				<f:facet name="input"><p:inputText id="modelInput" 
+                  				value="#{t.titleEditable}" style="width:96%"/></f:facet>
+              				</p:cellEditor>
 						</p:column>
 						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
 							<h:outputText value="#{t.categoryId}"/>
@@ -75,7 +82,15 @@
 							<h:outputText value="#{t.created}"/>
 						</p:column>
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
-							<h:outputText value="#{t.planned}"/>
+						<p:cellEditor>
+                  				<f:facet name="output">
+                  					<h:outputText value="#{t.planned}"/>
+                  				</f:facet>
+                  				<f:facet name="input">
+                  					<p:calendar id="plannedCal" 
+                  					value="#{t.plannedEditable}" />
+                  				</f:facet>
+              				</p:cellEditor>
 						</p:column>
 					</p:dataTable>
 					<p:commandButton ajax="true" value="#{msgs.finish}" id="task_to_finish_button"
