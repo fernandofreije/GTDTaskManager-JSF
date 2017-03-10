@@ -16,25 +16,25 @@
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
-								actionListener="#{tasks.setTasksInbox()}" 
+								actionListener="#{tasks.setTasksInbox()}"
 								update=":listTasksForm:tasksTable" />
 							<p:menuitem value="#{msgs.today}"
-								actionListener="#{tasks.setTasksToday()}" 
+								actionListener="#{tasks.setTasksToday()}"
 								update=":listTasksForm:tasksTable" />
 							<p:menuitem value="#{msgs.week}"
-								actionListener="#{tasks.setTasksWeek()}" 
+								actionListener="#{tasks.setTasksWeek()}"
 								update=":listTasksForm:tasksTable" />
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
-								actionListener="#{settings.setSpanish}" 
-								update=":formMenu: :addTaskForm: :listTasksForm" >
-							</p:menuitem>
-							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
-								actionListener="#{settings.setEnglish}" 
+								actionListener="#{settings.setSpanish}"
 								update=":formMenu: :addTaskForm: :listTasksForm">
 							</p:menuitem>
-							</p:submenu>
+							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+								actionListener="#{settings.setEnglish}"
+								update=":formMenu: :addTaskForm: :listTasksForm">
+							</p:menuitem>
+						</p:submenu>
 						<p:submenu label="#{login.login}">
 							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
 								icon="fa fa-sign-out" />
@@ -49,38 +49,38 @@
 					<p:watermark for="task_to_add" value="#{msgs.addPlaceholder}"
 						id="task_to_add_watermark" />
 
-					<p:commandButton value="#{msgs.add}" ajax="true" id="task_to_add_button"
-						actionListener="#{task.addTask()}" styleClass="ui-priority-primary" 
-						update="listTasksForm:tasksTable"/>
+					<p:commandButton value="#{msgs.add}" ajax="true"
+						id="task_to_add_button" actionListener="#{task.addTask()}"
+						styleClass="ui-priority-primary" update="listTasksForm:tasksTable" />
 				</h:form>
 				<h:form id="listTasksForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
-						styleClass="table table-striped" style="width:80%"
-						rows="8"
-                        paginator="true"
-                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+						styleClass="table table-striped" style="width:80%" rows="8"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
                         {RowsPerPageDropdown}"
-                        selection="#{tasks.selectedTasks}" rowKey="#{t.id}"
-                        editable="true" editMode="cell">
-                        <p:column selectionMode="multiple"
-						style="width:16px; text-align:center" />
-						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">
-							<h:outputText value="#{t.title}"/>
+						selection="#{tasks.selectedTasks}" rowKey="#{t.id}"
+						editable="true" editMode="cell">
+						<p:column selectionMode="multiple"
+							style="width:16px; text-align:center" />
+						<p:column filterBy="#{t.title}" filterMatchMode="contains"
+							sortBy="#{t.title}" headerText="#{msgs.title}">
+							<h:outputText value="#{t.title}" />
 						</p:column>
 						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
-							<h:outputText value="#{t.categoryId}"/>
+							<h:outputText value="#{t.categoryId}" />
 						</p:column>
 						<p:column headerText="#{msgs.created}">
-							<h:outputText value="#{t.created}"/>
+							<h:outputText value="#{t.created}" />
 						</p:column>
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
-							<h:outputText value="#{t.planned}"/>
+							<h:outputText value="#{t.planned}" />
 						</p:column>
 					</p:dataTable>
-					<p:commandButton ajax="true" value="#{msgs.finish}" id="task_to_finish_button"
-						actionListener="#{tasks.finishTasks()}" styleClass="ui-priority-primary" 
-						update="tasksTable" />
+					<p:commandButton ajax="true" value="#{msgs.finish}"
+						id="task_to_finish_button" actionListener="#{tasks.finishTasks()}"
+						styleClass="ui-priority-primary" update="tasksTable" />
 				</h:form>
 			</p:layoutUnit>
 		</p:layout>
