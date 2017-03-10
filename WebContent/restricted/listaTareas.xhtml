@@ -61,8 +61,8 @@
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
                         {RowsPerPageDropdown}"
-						selection="#{tasks.selectedTasks}"
-						editable="true" editMode="cell" widgetVar="tasksTable">
+						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
+						widgetVar="tasksTable">
 						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" />
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
@@ -80,7 +80,14 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
-							<h:outputText value="#{t.categoryId}" />
+
+							<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
+								style="width:150px">
+								
+								<f:selectItems value="#{tasks.listOfCategories}" var="c"
+									itemValue="#{c.id}" itemLabel="#{c.name}"/>
+
+							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">
 							<h:outputText value="#{t.created}" />
@@ -109,8 +116,8 @@
 						</p:column>
 
 					</p:dataTable>
-					<p:commandButton ajax="true" value="#{msgs.finish}"
-						id="task_to_finish_button" actionListener="#{tasks.finishTasks()}"
+					<p:commandButton value="#{msgs.finish}" id="task_to_finish_button"
+						actionListener="#{tasks.finishTasks()}"
 						styleClass="ui-priority-primary" update="tasksTable" />
 				</h:form>
 			</p:layoutUnit>

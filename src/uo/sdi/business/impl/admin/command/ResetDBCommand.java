@@ -37,7 +37,7 @@ public class ResetDBCommand implements Command<Void> {
 			
 			Task task;
 			int daysToAdd = 1;
-			int totalTasks = 0;
+			int totalTasks = 1;
 			
 			//10 tareas previstas a los 6 días siguientes.
 			for (long k=1; k<=10; k++){
@@ -78,11 +78,12 @@ public class ResetDBCommand implements Command<Void> {
 				//categoría 2 (3) y categoría 3 (4).
 				for (long k=1; k<=tasksPerCategory; k++){
 					task = new Task();
-					task.setTitle("Tarea " + totalTasks+k + " del usuario " + i + " de la categoría " + k);
+					task.setTitle("Tarea " + totalTasks + " del usuario " + i + " de la categoría " + j);
 					task.setPlanned(DateUtil.yesterday());
 					task.setCategoryId(categoryId);
 					task.setUserId(id);
 					tDao.save(task);
+					totalTasks++;
 				}
 			}
 			
