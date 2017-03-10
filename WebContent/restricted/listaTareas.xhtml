@@ -44,14 +44,15 @@
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
 				<h:form id="addTaskForm">
-					<p:inputText id="task_to_add" value="#{task.title}" required="true"
-						label="task_to_add" />
+					<p:inputText id="task_to_add" value="#{tasks.taskName}"
+						required="true" label="task_to_add" />
 					<p:watermark for="task_to_add" value="#{msgs.addPlaceholder}"
 						id="task_to_add_watermark" />
 
 					<p:commandButton value="#{msgs.add}" ajax="true"
-						id="task_to_add_button" actionListener="#{task.addTask()}"
+						id="task_to_add_button" actionListener="#{tasks.addTask}"
 						styleClass="ui-priority-primary" update="listTasksForm:tasksTable" />
+
 				</h:form>
 				<h:form id="listTasksForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
@@ -77,6 +78,10 @@
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
 							<h:outputText value="#{t.planned}" />
 						</p:column>
+						<p:column sortBy="#{t.finished}" headerText="#{msgs.finished}">
+							<h:outputText value="#{t.finished}" />
+						</p:column>
+
 					</p:dataTable>
 					<p:commandButton ajax="true" value="#{msgs.finish}"
 						id="task_to_finish_button" actionListener="#{tasks.finishTasks()}"

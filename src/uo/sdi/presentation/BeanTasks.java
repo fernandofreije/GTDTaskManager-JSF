@@ -28,6 +28,9 @@ public class BeanTasks {
 	private List<Task> listOfTasks;
 	private List<Task> listOfFinishedTasks;
 	private List<Task> selectedTasks;
+	
+	private String taskName;
+	
 	private String currentList;
 
 	public BeanTasks() {
@@ -99,6 +102,28 @@ public class BeanTasks {
 		}
 	}
 	
+	
+	public String addTask() {
+		// Task is created
+		Task task = new Task();
+		task.setTitle(getTaskName());
+		
+		//Inyeccion de dependencia???
+		task.setUserId(user.getId());
+
+		// Task is registered in db
+		TaskService taskService = Services.getTaskService();
+		try {
+			taskService.createTask(task);
+			forceUpdateList();
+		} catch (BusinessException e) {
+			return null;
+		}
+
+		return "exito";
+
+	}
+	
 	public void forceUpdateList(){
 		switch (currentList){
 		case "inbox" : setTasksInbox();break;
@@ -130,6 +155,14 @@ public class BeanTasks {
 
 	public void setSelectedTasks(List<Task> selectedTasks) {
 		this.selectedTasks = selectedTasks;
+	}
+	
+	public void setTaskName(String name){
+		this.taskName=name;
+	}
+	
+	public String getTaskName(){
+		return this.taskName;
 	}
 
 }
