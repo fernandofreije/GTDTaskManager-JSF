@@ -48,6 +48,7 @@
 						label="task_to_add" />
 					<p:watermark for="task_to_add" value="#{msgs.addPlaceholder}"
 						id="task_to_add_watermark" />
+
 					<p:commandButton value="#{msgs.add}" ajax="true" id="task_to_add_button"
 						actionListener="#{task.addTask()}" styleClass="ui-priority-primary" 
 						update="listTasksForm:tasksTable"/>
