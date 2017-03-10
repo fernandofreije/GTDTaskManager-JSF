@@ -80,13 +80,13 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
-
 							<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
-								style="width:150px">
-								
+								style="width:150px" >
+								<f:selectItem itemLabel="#{msgs.noCategory}"
+									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
-									itemValue="#{c.id}" itemLabel="#{c.name}"/>
-
+									itemValue="#{c.id}" itemLabel="#{c.name}" />
+								<f:ajax listener="#{tasks.edit(t)}" />
 							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">
@@ -102,7 +102,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column filterBy="#{t.hasBeenFinished()}" sortBy="#{t.finished}"
+						<p:column filterBy="#{t.hasBeenFinished()}"
 							headerText="#{msgs.finished}" filterMatchMode="equals"
 							filteredValue="#{t.finished}">
 							<f:facet name="filter">

@@ -3,10 +3,6 @@ package uo.sdi.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.model.ListDataModel;
-
-import org.primefaces.model.SelectableDataModel;
-
 import alb.util.date.DateUtil;
 
 public class Task implements Serializable {
@@ -19,139 +15,135 @@ public class Task implements Serializable {
 	private Date created = DateUtil.today();
 	private Date planned;
 	private Date finished;
-	
+
 	private Long categoryId;
 	private Long userId;
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public Task setId(Long id) {
 		this.id = id;
 		return this;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public String getTitleEditable() {
 		return title;
 	}
-	
+
 	public Task setTitle(String title) {
 		this.title = title;
 		return this;
 	}
-	
+
 	public void setTitleEditable(String title) {
 		this.title = title;
 	}
-	
+
 	public String getComments() {
 		return comments;
 	}
-	
+
 	public String getCommentsEditable() {
 		return comments;
 	}
-	
+
 	public Task setComments(String comments) {
 		this.comments = comments;
 		return this;
 	}
-	
+
 	public void setCommentsEditable(String comments) {
 		this.comments = comments;
 	}
-	
+
 	public Date getCreated() {
 		return created;
 	}
-	
+
 	public Date getCreatedEditable() {
 		return created;
 	}
-	
+
 	public Task setCreated(Date created) {
 		this.created = created;
 		return this;
 	}
-	
+
 	public void setCreatedEditable(Date created) {
 		this.created = created;
 	}
-	
+
 	public Date getPlanned() {
 		return planned;
 	}
-	
+
 	public Date getPlannedEditable() {
 		return planned;
 	}
-	
+
 	public Task setPlanned(Date planned) {
 		this.planned = planned;
 		return this;
 	}
-	
+
 	public void setPlannedEditable(Date planned) {
 		this.planned = planned;
 	}
-	
+
 	public Date getFinished() {
 		return finished;
 	}
-	
+
 	public Date getFinishedEditable() {
 		return finished;
 	}
-	
+
 	public Task setFinished(Date finished) {
 		this.finished = finished;
 		return this;
 	}
-	
+
 	public void setFinishedEditable(Date finished) {
 		this.finished = finished;
 	}
-	
+
 	public Long getCategoryId() {
 		return categoryId;
 	}
-	
+
 	public Long getCategoryEditable() {
 		return categoryId;
 	}
-	
+
 	public Task setCategoryId(Long category_id) {
 		this.categoryId = category_id;
 		return this;
 	}
-	
+
 	public void setCategoryEditable(Long category_id) {
 		this.categoryId = category_id;
 	}
-	
+
 	public Long getUserId() {
 		return userId;
 	}
-	
+
 	public Task setUserId(Long user_id) {
 		this.userId = user_id;
 		return this;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "TaskDto [id=" + id 
-				+ ", title=" + title 
-				+ ", comments=" + comments 
-				+ ", created=" + created
-				+ ", planned=" + planned 
-				+ ", finished=" + finished 
-				+ ", categoryId=" + categoryId 
+		return "TaskDto [id=" + id + ", title=" + title + ", comments="
+				+ comments + ", created=" + created + ", planned=" + planned
+				+ ", finished=" + finished + ", categoryId=" + categoryId
 				+ ", userId=" + userId + "]";
 	}
 
@@ -159,10 +151,13 @@ public class Task implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
-		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+		result = prime * result
+				+ ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result
+				+ ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
-		result = prime * result + ((finished == null) ? 0 : finished.hashCode());
+		result = prime * result
+				+ ((finished == null) ? 0 : finished.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((planned == null) ? 0 : planned.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -222,7 +217,7 @@ public class Task implements Serializable {
 		return true;
 	}
 
-	public boolean hasBeenFinished(){
+	public boolean hasBeenFinished() {
 		return finished != null;
 	}
 

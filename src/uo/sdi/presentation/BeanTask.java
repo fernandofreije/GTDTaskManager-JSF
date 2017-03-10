@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
@@ -41,8 +42,7 @@ public class BeanTask implements Serializable {
 	public void init(){
 		user = (User) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
-		
-		}
+	}
 	
 	public void showTask(Task task) {
 		setId(task.getId());

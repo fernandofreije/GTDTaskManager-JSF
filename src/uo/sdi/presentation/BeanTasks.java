@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
@@ -36,7 +38,6 @@ public class BeanTasks implements Serializable {
 	private List<Category> listOfCategories;
 	
 	private String taskName;
-
 	private String currentList;
 
 	public BeanTasks() {
@@ -48,10 +49,6 @@ public class BeanTasks implements Serializable {
 				.getSessionMap().get("LOGGEDIN_USER");
 		if (listOfTasks == null)
 			setTasksInbox();
-	}
-	
-	public void changeCategory(String category) {
-	    System.out.println("Selected country is:" + category);
 	}
 
 
@@ -152,7 +149,6 @@ public class BeanTasks implements Serializable {
 		} catch (BusinessException e) {
 			return null;
 		}
-
 		return "exito";
 	}
 
