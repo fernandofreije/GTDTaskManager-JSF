@@ -29,12 +29,24 @@ public class Task {
 		return title;
 	}
 	
+	public String getTitleEditable() {
+		return title;
+	}
+	
 	public Task setTitle(String title) {
 		this.title = title;
 		return this;
 	}
 	
+	public void setTitleEditable(String title) {
+		this.title = title;
+	}
+	
 	public String getComments() {
+		return comments;
+	}
+	
+	public String getCommentsEditable() {
 		return comments;
 	}
 	
@@ -43,7 +55,15 @@ public class Task {
 		return this;
 	}
 	
+	public void setCommentsEditable(String comments) {
+		this.comments = comments;
+	}
+	
 	public Date getCreated() {
+		return created;
+	}
+	
+	public Date getCreatedEditable() {
 		return created;
 	}
 	
@@ -52,7 +72,15 @@ public class Task {
 		return this;
 	}
 	
+	public void setCreatedEditable(Date created) {
+		this.created = created;
+	}
+	
 	public Date getPlanned() {
+		return planned;
+	}
+	
+	public Date getPlannedEditable() {
 		return planned;
 	}
 	
@@ -61,7 +89,15 @@ public class Task {
 		return this;
 	}
 	
+	public void setPlannedEditable(Date planned) {
+		this.planned = planned;
+	}
+	
 	public Date getFinished() {
+		return finished;
+	}
+	
+	public Date getFinishedEditable() {
 		return finished;
 	}
 	
@@ -70,13 +106,25 @@ public class Task {
 		return this;
 	}
 	
+	public void setFinishedEditable(Date finished) {
+		this.finished = finished;
+	}
+	
 	public Long getCategoryId() {
+		return categoryId;
+	}
+	
+	public Long getCategoryEditable() {
 		return categoryId;
 	}
 	
 	public Task setCategoryId(Long category_id) {
 		this.categoryId = category_id;
 		return this;
+	}
+	
+	public void setCategoryEditable(Long category_id) {
+		this.categoryId = category_id;
 	}
 	
 	public Long getUserId() {

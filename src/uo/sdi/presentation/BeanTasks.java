@@ -124,6 +124,19 @@ public class BeanTasks {
 
 	}
 	
+	public String edit(Task task) {
+		// Find the task we want to edit
+		TaskService taskService = Services.getTaskService();
+		// Task is updated in db
+		try {
+			taskService.updateTask(task);
+		} catch (BusinessException e) {
+			return null;
+		}
+
+		return "exito";
+	}
+	
 	public void forceUpdateList(){
 		switch (currentList){
 		case "inbox" : setTasksInbox();break;
