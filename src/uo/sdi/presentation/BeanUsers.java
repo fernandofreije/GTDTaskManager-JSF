@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import uo.sdi.business.AdminService;
 import uo.sdi.business.Services;
+import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
 import alb.util.log.Log;
@@ -48,6 +50,7 @@ public class BeanUsers {
 		try {
 			users = adminService.findAllUsers();
 		} catch (BusinessException e) {
+			BusinessCheck.showBusinessError(e.getMessage());
 		}
 	}
 
@@ -57,8 +60,7 @@ public class BeanUsers {
 			adminService.resetDB();
 			setListOfUsers();
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			BusinessCheck.showBusinessError(e.getMessage());
 		}
 		return null;
 	}
@@ -76,10 +78,7 @@ public class BeanUsers {
 			}
 			setListOfUsers();
 		} catch (BusinessException e1) {
-			Log.error(String.format("Some error occured %s "
-					+ "user with id: %d . Error: %s ", action, user.getId(),
-					e1.getMessage()));
-			return null;
+			BusinessCheck.showBusinessError(e1.getMessage());
 		}
 
 		Log.info(String.format("%s user with id %d was sucessful", action,
@@ -93,20 +92,14 @@ public class BeanUsers {
 		try {
 			// The user can not delete to himself
 			if (user.equals(userSession)) {
-				FacesMessage message = new FacesMessage(
-						"No se puede borrar a si mismo");
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, message);
+				BusinessCheck.showBusinessError(MessageProvider.getValue("adminDeleteHimself"));
 			} else {
 				service.deepDeleteUser(user.getId());
 				setListOfUsers();
 			}
 
 		} catch (BusinessException e1) {
-			Log.error(String
-					.format("Some error occured deleting user with id: %d . Error: %s ",
-							user.getId(), e1.getMessage()));
-			return null;
+			BusinessCheck.showBusinessError(e1.getMessage());
 		}
 
 		Log.info(String.format("User with id %d was deleted sucessfully",
@@ -131,8 +124,7 @@ public class BeanUsers {
 			}
 
 		} catch (BusinessException e1) {
-			Log.error(String.format("Some error occured deleting users"));
-			return null;
+			BusinessCheck.showBusinessError(e1.getMessage());
 		}
 		return null;
 	}

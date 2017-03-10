@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
+import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.User;
 import alb.util.log.Log;
@@ -32,8 +33,7 @@ public class BeanLogin implements Serializable {
 		try {
 			user = userService.findLoggableUser(getLogin());
 		} catch (BusinessException b) {
-			Log.info("Something ocurred when trying to sign in: "
-					+ b.getMessage());
+			BusinessCheck.showBusinessError(b.getMessage());
 		}
 		//If the user exists, session does not contain and user and is new
 		if (user != null && session.getAttribute("user")==null){ //&& session.isNew()) {

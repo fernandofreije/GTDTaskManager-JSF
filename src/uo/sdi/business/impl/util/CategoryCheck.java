@@ -11,27 +11,27 @@ public class CategoryCheck {
 
 	public static void nameIsNotNull(Category category) throws BusinessException {
 		BusinessCheck.isNotNull( category.getName(), 
-				"Category name cannot be null");
+				MessageProvider.getValue("nameIsNotNull"));
 	}
 
 	public static void nameIsNotEmpty(Category category) throws BusinessException {
 		BusinessCheck.isFalse( category.getName().length() == 0 , 
-				"Category name cannot be empty");
+				MessageProvider.getValue("nameIsNotEmpty"));
 	}
 
 	public static void userIsNotNull(Category category) throws BusinessException {
 		BusinessCheck.isNotNull( category.getUserId(),
-				"A category must be assigned to a user");
+				MessageProvider.getValue("userIsNotNull"));
 	}
 
 	public static void isValidUser(Category c) throws BusinessException {
 		User u = Persistence.getUserDao().findById( c.getUserId() );
 		
 		BusinessCheck.isNotNull( u,
-				"A category must be assigned to an existing user");
+				MessageProvider.getValue("isValidUser"));
 		
 		BusinessCheck.isTrue( u.getStatus().equals( UserStatus.ENABLED ),
-				"A category must be assigned to an enabled user");
+				MessageProvider.getValue("isEnabledUser"));
 	}
 
 	public static void isUniqueName(Category category) throws BusinessException {
@@ -39,12 +39,12 @@ public class CategoryCheck {
 				.findByUserIdAndName( category.getUserId(), category.getName() );
 	
 		BusinessCheck.isNull( other, 
-			"The category name cannot be repeated for this user" );
+				MessageProvider.getValue("isUniqueName"));
 	}
 
 	public static void isNotForAdminUser(Category category) throws BusinessException {
 		User u = Persistence.getUserDao().findById( category.getUserId() );
-		BusinessCheck.isFalse( u.getIsAdmin(), "An admin cannot have categories" );
+		BusinessCheck.isFalse( u.getIsAdmin(), MessageProvider.getValue("isNotForAdminUser"));
 	}
 
 }

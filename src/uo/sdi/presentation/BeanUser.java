@@ -1,13 +1,18 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
+import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.User;
 import alb.util.log.Log;
 
@@ -34,24 +39,16 @@ public class BeanUser implements Serializable {
 	 */
 	public String signUp() {
 		
-		//If passwords are not equal.
-		if (!getPassword().equals(getRepeatPassword())){
-			Log.info("The passwords must be equals");
-			return "error";
-		}
 		UserService userService = Services.getUserService();
 		User user = null;
 		try {
 			user = userService.findLoggableUser(getLogin());
 		} catch (BusinessException b) {
-			Log.info("Something ocurred when trying to sign up: "
-					+ b.getMessage());
-			return "error";
+			BusinessCheck.showBusinessError(b.getMessage());
 		}
 		//If user is already registered.
 		if (user != null){
-			Log.info("There exist a user registered with that login");
-			return "error";
+			BusinessCheck.showBusinessError(MessageProvider.getValue("userAlreadyExist"));
 		}
 		//Otherwise, save the user in the db.
 		User cloneUser = new User();
@@ -61,9 +58,7 @@ public class BeanUser implements Serializable {
 		try {
 			userService.registerUser(cloneUser);
 		} catch (BusinessException b) {
-			Log.info("Something ocurred when trying to sign up: "
-					+ b.getMessage());
-			return "error";
+			BusinessCheck.showBusinessError(b.getMessage());
 		}
 		return "exito";
 	}
