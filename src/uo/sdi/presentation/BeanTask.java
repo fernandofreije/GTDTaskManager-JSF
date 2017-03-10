@@ -42,7 +42,7 @@ public class BeanTask implements Serializable {
 		user = (User) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
 		
-	}
+		}
 	
 	public void showTask(Task task) {
 		setId(task.getId());

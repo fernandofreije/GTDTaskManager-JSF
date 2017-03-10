@@ -47,7 +47,7 @@
 					<p:watermark for="task_to_add" value="Add a new task"
 						id="task_to_add_watermark" />
 					<p:commandButton value="Add" ajax="true" id="task_to_add_button"
-						actionListener="#{task.addTask()}" styleClass="ui-priority-primary" 
+						action="#{task.addTask()}" styleClass="ui-priority-primary" 
 						update="listTasksForm:tasksTable"/>
 				</h:form>
 				<h:form id="listTasksForm">

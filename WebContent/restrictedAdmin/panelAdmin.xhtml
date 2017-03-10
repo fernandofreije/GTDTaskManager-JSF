@@ -11,18 +11,22 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
+		<h:outputScript library="omnifaces" name="fixviewstate.js"
+			target="head" />
 		<p:layout style="width:100%;height:100%;">
 			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
-				<h:form id ="formMenu">
+				<h:form id="formMenu">
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
-								actionListener="#{settings.setSpanish}" update=":formMenu: :formUsers" >
+								actionListener="#{settings.setSpanish}"
+								update=":formMenu: :formUsers">
 							</p:menuitem>
 							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
-								actionListener="#{settings.setEnglish}" update=":formMenu: :formUsers" >
+								actionListener="#{settings.setEnglish}"
+								update=":formMenu: :formUsers">
 							</p:menuitem>
-							</p:submenu>
+						</p:submenu>
 						<p:submenu label="#{login.login}">
 							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
 								icon="fa fa-sign-out" />
@@ -38,7 +42,6 @@
 						styleClass="table table-striped" style="margin-bottom:0">
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
-
 						<p:column headerText="#{msgs.id}">
 							<h:outputText value="#{u.id}" />
 						</p:column>
@@ -55,16 +58,19 @@
 							<h:outputText value="#{u.status}" />
 						</p:column>
 						<p:column>
-							<f:facet name="header">#{msgs.cambiarEstado}</f:facet>
-
-							<h:commandButton
+							<f:facet name="header">
+								<h:outputText value="#{msgs.cambiarEstado}" />
+							</f:facet>
+							<p:commandButton
 								rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
 								value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
-								icon="fa fa-fw fa-close" />
-							<h:commandButton
+								icon="fa fa-fw fa-close" process="usersTable"
+								update=":formUsers" />
+							<p:commandButton
 								rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
 								value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
-								icon="fa fa-fw fa-check" />
+								icon="fa fa-fw fa-check" process="usersTable"
+								update=":formUsers" />
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton id="deleteButton" process="usersTable"

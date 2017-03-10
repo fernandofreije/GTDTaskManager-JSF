@@ -2,9 +2,11 @@ package uo.sdi.presentation;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -22,13 +24,12 @@ import alb.util.log.Log;
  * 
  */
 @ManagedBean(name = "users")
-@RequestScoped
+@ViewScoped
 public class BeanUsers {
 
 	private User userSession;
 	private List<User> users;
 	private List<User> selectedUsers;
-
 
 	public BeanUsers() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -36,10 +37,25 @@ public class BeanUsers {
 		this.userSession = (User) session.getAttribute("LOGGEDIN_USER");
 	}
 
+	@PostConstruct
+	public void init() {
+		if (users == null)
+			setListOfUsers();
+	}
+
+	private void setListOfUsers() {
+		AdminService adminService = Services.getAdminService();
+		try {
+			users = adminService.findAllUsers();
+		} catch (BusinessException e) {
+		}
+	}
+
 	public String resetDatabase() {
 		AdminService adminService = Services.getAdminService();
 		try {
 			adminService.resetDB();
+			setListOfUsers();
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,6 +74,7 @@ public class BeanUsers {
 				action = "activating";
 				adminService.enableUser(user.getId());
 			}
+			setListOfUsers();
 		} catch (BusinessException e1) {
 			Log.error(String.format("Some error occured %s "
 					+ "user with id: %d . Error: %s ", action, user.getId(),
@@ -82,6 +99,7 @@ public class BeanUsers {
 				context.addMessage(null, message);
 			} else {
 				service.deepDeleteUser(user.getId());
+				setListOfUsers();
 			}
 
 		} catch (BusinessException e1) {
@@ -108,6 +126,7 @@ public class BeanUsers {
 					context.addMessage(null, message);
 				} else {
 					service.deepDeleteUser(u.getId());
+					setListOfUsers();
 				}
 			}
 
@@ -119,12 +138,6 @@ public class BeanUsers {
 	}
 
 	public List<User> getUsers() {
-		AdminService adminService = Services.getAdminService();
-		try {
-			users = adminService.findAllUsers();
-		} catch (BusinessException e) {
-
-		}
 		return users;
 	}
 
