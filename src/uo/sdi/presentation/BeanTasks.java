@@ -26,7 +26,7 @@ import alb.util.log.Log;
 public class BeanTasks {
 
 	private User user;
-	private List<Task> listOfTasks;
+	private TaskList listOfTasks;
 	private List<Task> listOfFinishedTasks;
 	private List<Task> selectedTasks;
 	
@@ -65,7 +65,7 @@ public class BeanTasks {
 			listaTareas.addAll(listaTareasNoTerminadasInbox);
 			listaTareas.addAll(listaTareasTerminadasInbox);
 			
-			setListOfTasks(listaTareas);
+			setListOfTasks(new TaskList(listaTareas));
 		} catch (BusinessException e) {
 			Log.error(e);
 		}
@@ -79,7 +79,7 @@ public class BeanTasks {
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
 			FreijeyPabloUtil.groupByCategory(listaTareas);
 			
-			setListOfTasks(listaTareas);
+			setListOfTasks(new TaskList(listaTareas));
 		} catch (BusinessException e) {
 			Log.error(e);
 		}
@@ -93,7 +93,7 @@ public class BeanTasks {
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
 			FreijeyPabloUtil.groupByDay(listaTareas);
 			
-			setListOfTasks(listaTareas);
+			setListOfTasks(new TaskList(listaTareas));
 		} catch (BusinessException e) {
 			Log.error(e);
 		}
@@ -155,12 +155,12 @@ public class BeanTasks {
 	}
 	
 
-	public List<Task> getListOfTasks() {
+	public TaskList getListOfTasks() {
 		return this.listOfTasks;
 	}
 
-	public void setListOfTasks(List<Task> listOfTasks) {
-		this.listOfTasks = listOfTasks;
+	public void setListOfTasks(TaskList taskList) {
+		this.listOfTasks = taskList;
 	}
 
 	public List<Task> getListOfFinishedTasks() {

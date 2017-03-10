@@ -61,7 +61,7 @@
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
                         {RowsPerPageDropdown}"
-						selection="#{tasks.selectedTasks}" rowKey="#{t.id}"
+						selection="#{tasks.selectedTasks}"
 						editable="true" editMode="cell" widgetVar="tasksTable">
 						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" />
 						<p:column selectionMode="multiple"
@@ -96,7 +96,8 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column filterBy="#{t.hasBeenFinished()}" sortBy="#{t.finished}"
-							headerText="#{msgs.finished}" filterMatchMode="equals">
+							headerText="#{msgs.finished}" filterMatchMode="equals"
+							filteredValue="#{t.finished}">
 							<f:facet name="filter">
 								<p:selectOneButton onchange="PF('tasksTable').filter()">
 									<f:converter converterId="javax.faces.Boolean" />

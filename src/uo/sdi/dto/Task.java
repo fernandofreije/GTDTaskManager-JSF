@@ -1,10 +1,17 @@
 package uo.sdi.dto;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.faces.model.ListDataModel;
+
+import org.primefaces.model.SelectableDataModel;
 
 import alb.util.date.DateUtil;
 
-public class Task {
+public class Task implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
 	private String title;
