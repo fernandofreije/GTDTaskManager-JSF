@@ -1,5 +1,6 @@
 package uo.sdi.presentation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -46,17 +47,25 @@ public class BeanTasks {
 
 	public void setTasksInbox() {
 		TaskService taskService = Services.getTaskService();
-		List<Task> listaTareas;
+		
 		try {
+			List<Task> listaTareas = new ArrayList<Task>();
 			currentList = "inbox";
-			listaTareas = taskService.findInboxTasksByUserId(user.getId());
+			
+			//Obtenemos de la base de datos las listas
+			List<Task> listaTareasNoTerminadasInbox = taskService.findInboxTasksByUserId(user.getId());
 			List<Task> listaTareasTerminadasInbox=taskService.
 					findFinishedInboxTasksByUserId(user.getId());
-			FreijeyPabloUtil.orderAscending(listaTareas);
+			
+			//Ordenamos las listas
+			FreijeyPabloUtil.orderAscending(listaTareasNoTerminadasInbox);
 			FreijeyPabloUtil.orderDescending(listaTareasTerminadasInbox);
 			
+			//Metemos en la lista de tareas ambas listas
+			listaTareas.addAll(listaTareasNoTerminadasInbox);
+			listaTareas.addAll(listaTareasTerminadasInbox);
+			
 			setListOfTasks(listaTareas);
-			setListOfFinishedTasks(listaTareasTerminadasInbox);
 		} catch (BusinessException e) {
 			Log.error(e);
 		}

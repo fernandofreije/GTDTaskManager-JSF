@@ -215,6 +215,8 @@ public class Task {
 		return true;
 	}
 
-	
+	public boolean hasBeenFinished(){
+		return finished != null;
+	}
 
 }

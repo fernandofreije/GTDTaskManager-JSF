@@ -182,5 +182,4 @@ public class BeanTask implements Serializable {
 		this.tasks = tasks;
 	}
 
-
 }
