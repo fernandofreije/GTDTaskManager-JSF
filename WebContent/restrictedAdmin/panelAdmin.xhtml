@@ -28,7 +28,7 @@
 							</p:menuitem>
 						</p:submenu>
 						<p:submenu label="#{login.login}">
-							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
+							<p:menuitem id="signOutLink" value="#{msgs.signOut}" action="#{user.logout}"
 								icon="fa fa-sign-out" />
 						</p:submenu>
 					</p:menu>
@@ -62,11 +62,13 @@
 								<h:outputText value="#{msgs.cambiarEstado}" />
 							</f:facet>
 							<p:commandButton
+								id="enable_#{u.login}"
 								rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
 								value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-close" process="usersTable"
 								update=":formUsers" />
 							<p:commandButton
+								id="disable_#{u.login}"
 								rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
 								value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-check" process="usersTable"
@@ -76,7 +78,7 @@
 							<p:commandButton id="deleteButton" process="usersTable"
 								value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
 								update=":formUsers" />
-							<p:commandButton process="usersTable" value="#{msgs.reset}"
+							<p:commandButton id="resetDBButton" process="usersTable" value="#{msgs.reset}"
 								action="#{users.resetDatabase()}" update=":formUsers" />
 						</f:facet>
 					</p:dataTable>

@@ -8,14 +8,14 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="loginForm">
 			<p:panelGrid columns="2" styleClass="formTable">
 			  <h:outputLabel for="login" value="#{msgs.login}" />
 			  <p:inputText id="login" value="#{login.login}" />
 			  <h:outputLabel for="pwd" value="#{msgs.password}" />  
 			  <p:password id="pwd" value="#{login.password}" />
 			</p:panelGrid>
-			<p:commandButton value="#{msgs.signIn}" action="#{login.login}" />
+			<p:commandButton id="loginButton" value="#{msgs.signIn}" action="#{login.login}" />
 		</h:form>
 	</h:body>
 </f:view>
