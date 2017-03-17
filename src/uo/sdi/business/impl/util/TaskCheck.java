@@ -12,34 +12,34 @@ public class TaskCheck {
 
 	public static void categoryExists(Task task) throws BusinessException {
 		Category c = Persistence.getCategoryDao().findById( task.getCategoryId());
-		BusinessCheck.isNotNull( c, "The category of the task does not exist");
+		BusinessCheck.isNotNull( c, MessageProvider.getValue("categoryExists"));
 	}
 
 	public static void userExists(Task task) throws BusinessException {
 		User u = Persistence.getUserDao().findById( task.getUserId());
-		BusinessCheck.isNotNull( u, "The user of the task does not exist");
+		BusinessCheck.isNotNull( u, MessageProvider.getValue("userExists"));
 	}
 
 	public static void userIsNotDisabled(Task task) throws BusinessException {
 		User u = Persistence.getUserDao().findById( task.getUserId());
 		BusinessCheck.isTrue( u.getStatus().equals( UserStatus.ENABLED), 
-				"The user of the task is disabled");
+				MessageProvider.getValue("userIsNotDisabled"));
 	}
 
 	public static void userIsNotAdmin(Task task) throws BusinessException {
 		User u = Persistence.getUserDao().findById( task.getUserId());
 		BusinessCheck.isFalse( u.getIsAdmin(), 
-				"The user of the task cannot be an admin");
+				MessageProvider.getValue("userIsNotAdmin"));
 	}
 
 	public static void titleIsNotNull(Task task) throws BusinessException {
 		BusinessCheck.isTrue( task.getTitle() != null, 
-				"The title of the task is cannot be null");
+				MessageProvider.getValue("titleIsNotNull"));
 	}
 
 	public static void titleIsNotEmpty(Task task) throws BusinessException {
 		BusinessCheck.isTrue( ! "".equals( task.getTitle() ), 
-				"The title of the task is cannot be empty");
+				MessageProvider.getValue("titleIsNotEmpty"));
 	}
 
 }

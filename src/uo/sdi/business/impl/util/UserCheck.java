@@ -1,7 +1,6 @@
 package uo.sdi.business.impl.util;
 
 import java.util.regex.Pattern;
-
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.User;
@@ -11,29 +10,29 @@ import uo.sdi.persistence.UserDao;
 public class UserCheck {
 
 	public static void isNotAdmin(User user) throws BusinessException {
-		String check = "A new admin cannot be registered"; 
+		String check = MessageProvider.getValue("isNotAdmin"); 
 		BusinessCheck.isFalse( user.getIsAdmin(), check);
 	}
 
 	public static void isValidEmailSyntax(User user) throws BusinessException {
-		String check = "Not a valid email";
+		String check = MessageProvider.getValue("isValidEmailSyntax"); 
 		BusinessCheck.isTrue( isValidEmail( user.getEmail()), check);
 	}
 
 	public static void minLoginLength(User user) throws BusinessException {
-		String check = "The login must be at least 3 chars long";
+		String check = MessageProvider.getValue("minLoginLength"); 
 		BusinessCheck.isTrue( user.getLogin().length() >= 3, check);
 	}
 
 	public static void minPasswordLength(User user) throws BusinessException {
-		String check = "The password must be at least 6 chars long";
+		String check = MessageProvider.getValue("minPasswordLength"); 
 		BusinessCheck.isTrue( user.getPassword().length() >= 6, check);
 	}
 
 	public static void notRepeatedLogin(User user) throws BusinessException {
 		UserDao uDao = Persistence.getUserDao();
 		User u = uDao.findByLogin( user.getLogin() );
-		BusinessCheck.isNull(u, "The login is already used");
+		BusinessCheck.isNull(u, MessageProvider.getValue("notRepeatedLogin"));
 	}
 
 	private static boolean isValidEmail(String email) {
