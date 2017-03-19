@@ -49,6 +49,7 @@ public class BeanUser implements Serializable {
 		//If user is already registered.
 		if (user != null){
 			BusinessCheck.showBusinessError(MessageProvider.getValue("userAlreadyExist"));
+			return null;
 		}
 		//Otherwise, save the user in the db.
 		User cloneUser = new User();
@@ -59,6 +60,7 @@ public class BeanUser implements Serializable {
 			userService.registerUser(cloneUser);
 		} catch (BusinessException b) {
 			BusinessCheck.showBusinessError(b.getMessage());
+			return null;
 		}
 		return "exito";
 	}

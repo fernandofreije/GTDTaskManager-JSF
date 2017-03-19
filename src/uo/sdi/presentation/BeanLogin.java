@@ -35,6 +35,7 @@ public class BeanLogin implements Serializable {
 			user = userService.findLoggableUser(getLogin());
 		} catch (BusinessException b) {
 			BusinessCheck.showBusinessError(b.getMessage());
+			return null;
 		}
 		//If the user exists, session does not contain and user and is new
 		if (user != null && session.getAttribute("user")==null){ //&& session.isNew()) {

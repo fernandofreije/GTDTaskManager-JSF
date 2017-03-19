@@ -62,13 +62,13 @@
 								<h:outputText value="#{msgs.cambiarEstado}" />
 							</f:facet>
 							<p:commandButton
-								id="enable_#{u.login}"
+								id="disableButton"
 								rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
 								value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-close" process="usersTable"
 								update=":formUsers" />
 							<p:commandButton
-								id="disable_#{u.login}"
+								id="enableButton"
 								rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
 								value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-check" process="usersTable"

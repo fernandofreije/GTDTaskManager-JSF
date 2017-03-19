@@ -8,28 +8,28 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form id="registerForm">
 			<p:messages id="messages" showDetail="true" autoUpdate="true" />
 			<p:panelGrid columns="2" styleClass="formTable">
 				<p:outputLabel value="#{msgs.login}" />
 				<p:inputText value="#{user.login}" label="Login" required="true"
-					requiredMessage="#{msgs.requiredLogin}" />
+					requiredMessage="#{msgs.requiredLogin}" id="login" />
 				<p:outputLabel value="#{msgs.email}" />
 				<p:inputText value="#{user.email}" label="Email" required="true"
-					requiredMessage="#{msgs.requiredEmail}" />
+					requiredMessage="#{msgs.requiredEmail}" id="email"/>
 				<p:outputLabel for="pwd1" value="#{msgs.password}" />
 				<p:password id="pwd1" label="Password" value="#{user.password}"
 					required="true" requiredMessage="#{msgs.requiredPassword}"
 					feedback="true" match="pwd2"
-					validatorMessage="#{msgs.matchPassword}" />
+					validatorMessage="#{msgs.matchPassword}"/>
 			 <p:outputLabel for="
 					pwd2" value="#{msgs.repeatPassword}" />
 				<p:password id="pwd2" label="Repeated password"
 					value="#{user.repeatPassword}" required="true"
 					requiredMessage="#{msgs.requiredPassword2}" feedback="true"
-					validatorMessage="#{msgs.matchPassword}" />
+					validatorMessage="#{msgs.matchPassword}"/>
 			</p:panelGrid>
-			<p:commandButton value="#{msgs.signUp}" action="#{user.signUp}" />
+			<p:commandButton id="registerButton" value="#{msgs.signUp}" action="#{user.signUp}" />
 		</h:form>
 	</h:body>
 </f:view>
