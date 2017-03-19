@@ -11,6 +11,7 @@ import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.User;
 import alb.util.log.Log;
 
@@ -51,12 +52,16 @@ public class BeanLogin implements Serializable {
 				else
 					return "exito";
 			}
-			//Otherwise
+			//If the password is incorrect
 			else{
+				BusinessCheck.showBusinessError(MessageProvider.getValue("incorrectPassword"));
 				setIsSignedIn(false);
 				return null;
 			}
-		} else {
+		}
+		//Otherwise
+		else {
+			BusinessCheck.showBusinessError(MessageProvider.getValue("incorrectLogin"));
 			setIsSignedIn(false);
 			return null;
 		}
