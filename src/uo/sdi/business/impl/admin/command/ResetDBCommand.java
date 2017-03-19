@@ -20,7 +20,7 @@ public class ResetDBCommand implements Command<Void> {
 		UserDao uDao = Persistence.getUserDao();
 		
 		for (User u : uDao.findAll()){
-			if (!u.getLogin().equals("admin")){
+			if (!u.getLogin().equals("admin1")){
 				tDao.deleteAllFromUserId( u.getId() );
 				cDao.deleteAllFromUserId( u.getId() );
 				uDao.delete( u.getId() );
