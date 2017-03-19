@@ -45,6 +45,7 @@ public class BeanUser implements Serializable {
 			user = userService.findLoggableUser(getLogin());
 		} catch (BusinessException b) {
 			BusinessCheck.showBusinessError(b.getMessage());
+			return null;
 		}
 		//If user is already registered.
 		if (user != null){
