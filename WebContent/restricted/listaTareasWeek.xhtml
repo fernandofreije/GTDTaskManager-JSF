@@ -16,14 +16,14 @@
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
-								actionListener="#{tasks.setTasksInbox()}"
-								update=":listTasksForm:tasksTable" />
+								action="#{tasks.setTasksInbox}"
+								update=":listTasksForm" />
 							<p:menuitem value="#{msgs.today}"
-								actionListener="#{tasks.setTasksToday()}"
-								update=":listTasksForm:tasksTable" />
+								action="#{tasks.setTasksToday}"
+								update=":listTasksForm" />
 							<p:menuitem value="#{msgs.week}"
-								actionListener="#{tasks.setTasksWeek()}"
-								update=":listTasksForm:tasksTable" />
+								action="#{tasks.setTasksWeek}"
+								update=":listTasksForm" />
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
@@ -57,18 +57,12 @@
 				<h:form id="listTasksForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%" rows="8"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
-                        {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
-                        {RowsPerPageDropdown}"
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
 						widgetVar="tasksTable">
 						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" />
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
-
-						<p:column sortBy="#{t.title}" headerText="#{msgs.title}"
-							filterBy="#{t.title}" filterMatchMode="contains">
+						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{t.title}" />
@@ -79,7 +73,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
+						<p:column headerText="#{msgs.category}">
 							<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
 								style="width:150px" >
 								<f:selectItem itemLabel="#{msgs.noCategory}"
@@ -102,19 +96,6 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column filterBy="#{t.hasBeenFinished()}"
-							headerText="#{msgs.finished}" filterMatchMode="equals"
-							filteredValue="#{t.finished}">
-							<f:facet name="filter">
-								<p:selectOneButton onchange="PF('tasksTable').filter()">
-									<f:converter converterId="javax.faces.Boolean" />
-									<f:selectItem itemLabel="All" itemValue="" />
-									<f:selectItem itemLabel="Finished" itemValue="true" />
-								</p:selectOneButton>
-							</f:facet>
-							<h:outputText value="#{t.finished}" />
-						</p:column>
-
 					</p:dataTable>
 					<p:commandButton value="#{msgs.finish}" id="task_to_finish_button"
 						actionListener="#{tasks.finishTasks()}"

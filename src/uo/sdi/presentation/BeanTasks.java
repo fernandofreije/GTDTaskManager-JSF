@@ -8,8 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
@@ -52,7 +50,7 @@ public class BeanTasks implements Serializable {
 	}
 
 
-	public void setTasksInbox() {
+	public String setTasksInbox() {
 		TaskService taskService = Services.getTaskService();
 
 		try {
@@ -74,12 +72,15 @@ public class BeanTasks implements Serializable {
 			listaTareas.addAll(listaTareasTerminadasInbox);
 
 			setListOfTasks(new TaskList(listaTareas));
+			
+			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
+			return "fracaso";
 		}
 	}
 
-	public void setTasksToday() {
+	public String setTasksToday() {
 		currentList = "today";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
@@ -88,12 +89,14 @@ public class BeanTasks implements Serializable {
 			FreijeyPabloUtil.groupByCategory(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
+			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
+			return "fracaso";
 		}
 	}
 
-	public void setTasksWeek() {
+	public String setTasksWeek() {
 		currentList = "week";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
@@ -102,8 +105,11 @@ public class BeanTasks implements Serializable {
 			FreijeyPabloUtil.groupByDay(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
+			
+			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
+			return "fracaso";
 		}
 	}
 

@@ -69,7 +69,50 @@
 		<navigation-case>
 			<from-action>#{login.login}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listaTareas.xhtml</to-view-id>
+			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/restricted/*</from-view-id>
+		<navigation-case>
+			<from-action>#{tasks.setTasksInbox}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tasks.setTasksInbox}</from-action>
+			<from-outcome>fracaso</from-outcome>
+			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/restricted/*</from-view-id>
+		<navigation-case>
+			<from-action>#{tasks.setTasksToday}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tasks.setTasksToday}</from-action>
+			<from-outcome>fracaso</from-outcome>
+			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/restricted/*</from-view-id>
+		
+		<navigation-case>
+			<from-action>#{tasks.setTasksWeek}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listaTareasWeek.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tasks.setTasksWeek}</from-action>
+			<from-outcome>fracaso</from-outcome>
+			<to-view-id>/restricted/listaTareasWeek.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
