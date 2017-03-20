@@ -71,9 +71,10 @@
 							filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{t.title}" />
+									<h:outputText style="color :'#{tasks.getColor(t)}';" 
+									value="#{t.title}" />
 								</f:facet>
-								<f:facet name="input">
+								<f:facet name="input" >
 									<p:inputText id="modelInput" value="#{t.titleEditable}"
 										style="width:96%" />
 								</f:facet>
@@ -93,9 +94,9 @@
 							<h:outputText value="#{t.created}" />
 						</p:column>
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
-							<p:cellEditor>
+							<p:cellEditor color="#{tasks.getColor(t)}">
 								<f:facet name="output">
-									<h:outputText value="#{t.planned}" />
+									<h:outputText value="#{t.planned}" style="color :'#{tasks.getColor(t)}';"/>
 								</f:facet>
 								<f:facet name="input">
 									<p:calendar id="plannedCal" value="#{t.plannedEditable}" />

@@ -1,6 +1,7 @@
 package uo.sdi.dto;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import alb.util.date.DateUtil;
@@ -99,6 +100,7 @@ public class Task implements Serializable {
 	public Date getFinished() {
 		return finished;
 	}
+	
 
 	public Date getFinishedEditable() {
 		return finished;
@@ -111,6 +113,17 @@ public class Task implements Serializable {
 
 	public void setFinishedEditable(Date finished) {
 		this.finished = finished;
+	}
+	
+	public boolean Late(){
+		Date tomorrow = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(tomorrow); 
+		c.add(Calendar.DATE, 1);
+		tomorrow = c.getTime();
+		if (planned.compareTo(tomorrow)==1)
+			return true;
+		return false;
 	}
 
 	public Long getCategoryId() {
