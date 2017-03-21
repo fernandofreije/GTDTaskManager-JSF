@@ -1,7 +1,10 @@
 package uo.sdi.presentation;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -41,6 +44,8 @@ public class BeanTasks implements Serializable {
 	public BeanTasks() {
 	}
 
+	
+	
 	@PostConstruct
 	public void init() {
 		user = (User) FacesContext.getCurrentInstance().getExternalContext()
@@ -96,6 +101,21 @@ public class BeanTasks implements Serializable {
 		}
 	}
 
+	
+	public String getColor(Task task){
+		
+		if (task.getFinished()!=null)
+			return "green";	
+		Date tomorrow = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(tomorrow); 
+		c.add(Calendar.DATE, 1);
+		tomorrow = c.getTime();
+		if (task.getPlanned().compareTo(tomorrow)==1)
+			return "red";
+		return "black";
+	}
+	
 	public String setTasksWeek() {
 		currentList = "week";
 		TaskService taskService = Services.getTaskService();

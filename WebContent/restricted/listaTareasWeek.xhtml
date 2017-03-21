@@ -68,7 +68,7 @@
 						</p:column>
 						<p:column headerText="#{msgs.category}">
 							<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
-								style="width:150px" >
+								style="width:150px ;color :'#{tasks.getColor(t)}';" >
 								<f:selectItem itemLabel="#{msgs.noCategory}"
 									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
