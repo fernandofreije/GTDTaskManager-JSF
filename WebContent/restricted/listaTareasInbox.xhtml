@@ -68,7 +68,7 @@
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{t.title}"
-									style="color:#{t.isFinished()?'green':'black'}"/>
+									style="color:#{t.isTaskFinished()?'green':'black'}"/>
 								</f:facet>
 								<f:facet name="input" >
 									<p:inputText id="modelInput" value="#{t.titleEditable}"

@@ -102,10 +102,9 @@ public class Task implements Serializable {
 		return finished;
 	}
 	
-	public boolean isFinished() {
+	public boolean isTaskFinished() {
 		return finished!=null;
 	}
-	
 
 	public Date getFinishedEditable() {
 		return finished;
@@ -121,7 +120,7 @@ public class Task implements Serializable {
 	}
 	
 	public boolean isLate(){
-		if (finished!=null)
+		if (finished!=null || planned==null)
 			return false;
 		if (planned.before(FreijeyPabloUtil.today()))
 			return true;
