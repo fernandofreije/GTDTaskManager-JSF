@@ -76,7 +76,7 @@ public class BeanTask implements Serializable {
 			task.setCategoryId(getCategoryId());
 			if (getPlanned().equals(DateUtil.today()))
 				resultado = "today";
-			else if (task.getPlanned().after(DateUtil.today()))
+			else if (getPlanned().after(DateUtil.today()))
 				resultado = "week";
 		}
 		else
