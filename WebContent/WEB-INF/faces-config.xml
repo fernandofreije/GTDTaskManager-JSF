@@ -124,7 +124,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{task.addTask}</from-action>
-			<from-outcome>hoy</from-outcome>
+			<from-outcome>today</from-outcome>
 			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
