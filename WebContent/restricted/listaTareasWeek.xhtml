@@ -53,6 +53,9 @@
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
 						widgetVar="tasksTable">
 						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" />
+						<f:facet name="header">
+       					<h:outputText value="#{msgs.week}" />
+    					</f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
 						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">

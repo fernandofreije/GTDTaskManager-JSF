@@ -67,7 +67,7 @@ public class BeanTask implements Serializable {
 		task.setTitle(getTitle());
 		task.setComments(getComments());
 		
-		if (getPlanned().before(DateUtil.today())){
+		if (getPlanned() != null && getPlanned().before(DateUtil.today())){
 			BusinessCheck.showBusinessError(MessageProvider.getValue("plannedDateIsNotDelayed"));
 			return null;	
 		}
