@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import uo.sdi.business.impl.util.FreijeyPabloUtil;
 import alb.util.date.DateUtil;
 
 public class Task implements Serializable {
@@ -101,6 +102,10 @@ public class Task implements Serializable {
 		return finished;
 	}
 	
+	public boolean isFinished() {
+		return finished!=null;
+	}
+	
 
 	public Date getFinishedEditable() {
 		return finished;
@@ -115,13 +120,10 @@ public class Task implements Serializable {
 		this.finished = finished;
 	}
 	
-	public boolean Late(){
-		Date tomorrow = new Date();
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(tomorrow); 
-		c.add(Calendar.DATE, 1);
-		tomorrow = c.getTime();
-		if (planned.compareTo(tomorrow)==1)
+	public boolean isLate(){
+		if (finished!=null)
+			return false;
+		if (planned.before(FreijeyPabloUtil.today()))
 			return true;
 		return false;
 	}

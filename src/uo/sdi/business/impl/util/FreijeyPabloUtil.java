@@ -1,7 +1,9 @@
 package uo.sdi.business.impl.util;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import uo.sdi.business.Services;
@@ -21,6 +23,18 @@ public class FreijeyPabloUtil {
 				return o1.getPlanned().compareTo(o2.getPlanned());
 			}
 		});
+	}
+	
+	public static Date today(){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		Date today = new Date();
+		today.setTime(cal.getTimeInMillis());
+		return today;
 	}
 	
 	public static void orderDescending (List<Task> param){
@@ -80,5 +94,7 @@ public class FreijeyPabloUtil {
 		} catch (BusinessException e) {}
 		return "";
 	}
+	
+	
 
 }

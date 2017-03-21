@@ -37,15 +37,13 @@ public class BeanTasks implements Serializable {
 	private List<Task> listOfFinishedTasks;
 	private List<Task> selectedTasks;
 	private List<Category> listOfCategories;
-	
+
 	private String taskName;
 	private String currentList;
 
 	public BeanTasks() {
 	}
 
-	
-	
 	@PostConstruct
 	public void init() {
 		user = (User) FacesContext.getCurrentInstance().getExternalContext()
@@ -53,7 +51,6 @@ public class BeanTasks implements Serializable {
 		if (listOfTasks == null)
 			setTasksInbox();
 	}
-
 
 	public String setTasksInbox() {
 		TaskService taskService = Services.getTaskService();
@@ -77,7 +74,7 @@ public class BeanTasks implements Serializable {
 			listaTareas.addAll(listaTareasTerminadasInbox);
 
 			setListOfTasks(new TaskList(listaTareas));
-			
+
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -101,21 +98,6 @@ public class BeanTasks implements Serializable {
 		}
 	}
 
-	
-	public String getColor(Task task){
-		
-		if (task.getFinished()!=null)
-			return "green";	
-		Date tomorrow = new Date();
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(tomorrow); 
-		c.add(Calendar.DATE, 1);
-		tomorrow = c.getTime();
-		if (task.getPlanned().compareTo(tomorrow)==1)
-			return "red";
-		return "black";
-	}
-	
 	public String setTasksWeek() {
 		currentList = "week";
 		TaskService taskService = Services.getTaskService();
@@ -125,7 +107,7 @@ public class BeanTasks implements Serializable {
 			FreijeyPabloUtil.groupByDay(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
-			
+
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -223,7 +205,7 @@ public class BeanTasks implements Serializable {
 	public String getTaskName() {
 		return this.taskName;
 	}
-	
+
 	public List<Category> getListOfCategories() {
 		TaskService taskService = Services.getTaskService();
 		try {
