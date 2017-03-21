@@ -14,6 +14,10 @@
 			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
 				<h:form id="formMenu">
 					<p:menu toggleable="true">
+						<p:submenu label="#{msgs.tasks}">
+						<p:menuitem value="#{msgs.addTask}"
+									action="añadirTarea.xhtml"/>
+						</p:submenu>
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
 								action="#{tasks.setTasksInbox}"
@@ -43,17 +47,6 @@
 				</h:form>
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
-				<h:form id="addTaskForm">
-					<p:inputText id="task_to_add" value="#{tasks.taskName}"
-						required="true" label="task_to_add" />
-					<p:watermark for="task_to_add" value="#{msgs.addPlaceholder}"
-						id="task_to_add_watermark" />
-
-					<p:commandButton value="#{msgs.add}" ajax="true"
-						id="task_to_add_button" actionListener="#{tasks.addTask}"
-						styleClass="ui-priority-primary" update="listTasksForm:tasksTable" />
-
-				</h:form>
 				<h:form id="listTasksForm">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%" rows="8"

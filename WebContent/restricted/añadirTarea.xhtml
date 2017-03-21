@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+<f:view locale="#{settings.locale}">
+	<h:head>
+		<title>#{msgs.tituloHead}</title>
+	</h:head>
+	<h:body>
+		<p:layout style="width:100%;height:100%;">
+			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
+				<h:form id="formMenu">
+					<p:menu toggleable="true">
+						<p:submenu label="#{msgs.tasks}">
+							<p:menuitem value="#{msgs.addTask}" type="button"
+								action="añadirTarea" />
+						</p:submenu>
+						<p:submenu label="#{msgs.lists}">
+							<p:menuitem value="#{msgs.inbox}" action="#{tasks.setTasksInbox}" />
+							<p:menuitem value="#{msgs.today}" action="#{tasks.setTasksToday}" />
+							<p:menuitem value="#{msgs.week}" action="#{tasks.setTasksWeek}" />
+						</p:submenu>
+						<p:submenu label="#{msgs.cambiarIdioma}">
+							<p:menuitem value="#{msgs.enlaceIdiomaES}"
+								actionListener="#{settings.setSpanish}"
+								update=":formMenu: :addTaskForm:">
+							</p:menuitem>
+							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+								actionListener="#{settings.setEnglish}"
+								update=":formMenu: :addTaskForm:">
+							</p:menuitem>
+						</p:submenu>
+						<p:submenu label="#{login.login}">
+							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
+								icon="fa fa-sign-out" />
+						</p:submenu>
+					</p:menu>
+				</h:form>
+			</p:layoutUnit>
+			<p:layoutUnit position="center">
+				<h:form id="addTaskForm">
+					<p:messages id="messages" autoUpdate="true" />
+					<p:panelGrid columns="2" styleClass="formTable">
+						<p:outputLabel for="title" value="#{msgs.title}" />
+						<p:inputText id="title" value="#{task.title}" required="true" 
+						requiredMessage="#{msgs.titleIsNotEmpty}"/>
+						<p:outputLabel for="comments" value="#{msgs.comments}" />
+						<p:inputTextarea id="comments" value="#{task.comments}" rows="6"
+							cols="33" />
+						<p:outputLabel for="categoryMenu" value="#{msgs.category}" />
+						<p:selectOneMenu id="categoryMenu" value="#{task.categoryId}"
+							style="width:150px">
+							<f:selectItem itemLabel="#{msgs.noCategory}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{tasks.listOfCategories}" var="c"
+								itemValue="#{c.id}" itemLabel="#{c.name}" />
+						</p:selectOneMenu>
+						<h:outputLabel for="plannedDate" value="#{msgs.planned}" />
+						<p:calendar id="plannedDate" value="#{task.planned}" />
+					</p:panelGrid>
+					<p:commandButton value="#{msgs.add}" id="task_to_add_button"
+						action="#{task.addTask}" styleClass="ui-priority-primary" />
+				</h:form>
+			</p:layoutUnit>
+		</p:layout>
+	</h:body>
+</f:view>
+</html>

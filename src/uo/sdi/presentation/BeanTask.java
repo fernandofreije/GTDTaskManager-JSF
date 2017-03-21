@@ -10,9 +10,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import alb.util.date.DateUtil;
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
+import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 
@@ -58,22 +61,39 @@ public class BeanTask implements Serializable {
 
 	public String addTask() {
 		// Task is created
+		String resultado = "";
+		
 		Task task = new Task();
 		task.setTitle(getTitle());
+		task.setComments(getComments());
 		
-		//Inyeccion de dependencia???
+		if (getPlanned().before(DateUtil.today())){
+			BusinessCheck.showBusinessError(MessageProvider.getValue("plannedDateIsNotDelayed"));
+			return null;	
+		}
+		
+		if (getCategoryId() != null){
+			task.setCategoryId(getCategoryId());
+			if (getPlanned().equals(DateUtil.today()))
+				resultado = "today";
+			else if (task.getPlanned().after(DateUtil.today()))
+				resultado = "week";
+		}
+		else
+			resultado = "inbox";
+		
+		task.setPlanned(getPlanned());
 		task.setUserId(user.getId());
-
+		
 		// Task is registered in db
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
-			tasks.forceUpdateList();
 		} catch (BusinessException e) {
+			BusinessCheck.showBusinessError(e.getMessage());
 			return null;
 		}
-
-		return "exito";
+		return resultado;
 
 	}
 

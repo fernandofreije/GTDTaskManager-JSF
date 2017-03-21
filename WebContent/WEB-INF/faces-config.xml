@@ -72,7 +72,7 @@
 			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/restricted/*</from-view-id>
 		<navigation-case>
@@ -86,7 +86,7 @@
 			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/restricted/*</from-view-id>
 		<navigation-case>
@@ -100,10 +100,9 @@
 			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>/restricted/*</from-view-id>
-		
 		<navigation-case>
 			<from-action>#{tasks.setTasksWeek}</from-action>
 			<from-outcome>exito</from-outcome>
@@ -112,6 +111,25 @@
 		<navigation-case>
 			<from-action>#{tasks.setTasksWeek}</from-action>
 			<from-outcome>fracaso</from-outcome>
+			<to-view-id>/restricted/listaTareasWeek.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/restricted/añadirTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{task.addTask}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{task.addTask}</from-action>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{task.addTask}</from-action>
+			<from-outcome>week</from-outcome>
 			<to-view-id>/restricted/listaTareasWeek.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
@@ -143,5 +161,5 @@
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 </faces-config>
