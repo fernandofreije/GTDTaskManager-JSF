@@ -154,7 +154,7 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/restricted/listaTareas.xhtml</from-view-id>
+		<from-view-id>/restricted/*</from-view-id>
 		<navigation-case>
 			<from-action>#{user.logout}</from-action>
 			<from-outcome>exito</from-outcome>

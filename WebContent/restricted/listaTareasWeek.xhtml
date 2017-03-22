@@ -76,7 +76,7 @@
 									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
 									itemValue="#{c.id}" itemLabel="#{c.name}" />
-								<f:ajax listener="#{tasks.edit(t)}"  update="listTasksForm"/>
+								<p:ajax listener="#{tasks.edit(t)}"  update="listTasksForm"/>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">
