@@ -56,7 +56,7 @@
                         {RowsPerPageDropdown}"
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
 						widgetVar="tasksTable">
-						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" update=":listTasksForm:"/>
+						<p:ajax event="rowEdit" listener="#{tasks.edit(t)}"/>
 						<f:facet name="header">
        					<h:outputText value="#{msgs.inbox}" />
     					</f:facet>
