@@ -76,16 +76,16 @@
 									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
 									itemValue="#{c.id}" itemLabel="#{c.name}" />
-								<f:ajax listener="#{tasks.edit(t)}" />
+								<f:ajax listener="#{tasks.edit(t)}"  update="listTasksForm"/>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">
-							<h:outputText value="#{t.created}" />
+							<h:outputText value="#{tasks.formatDate(t.created)}" />
 						</p:column>
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
 							<p:cellEditor >
 								<f:facet name="output">
-									<h:outputText value="#{t.planned}" style="color:#{t.isLate()?'red':'black'}"/>
+									<h:outputText value="#{tasks.formatDate(t.planned)}" style="color:#{t.isLate()?'red':'black'}"/>
 								</f:facet>
 								<f:facet name="input">
 									<p:calendar id="plannedCal" value="#{t.plannedEditable}" />

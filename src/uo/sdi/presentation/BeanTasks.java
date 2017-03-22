@@ -19,6 +19,7 @@ import uo.sdi.business.impl.util.FreijeyPabloUtil;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
+import alb.util.date.DateUtil;
 import alb.util.log.Log;
 
 /**
@@ -154,6 +155,7 @@ public class BeanTasks implements Serializable {
 		// Task is updated in db
 		try {
 			taskService.updateTask(task);
+			forceUpdateList();
 		} catch (BusinessException e) {
 			return null;
 		}
@@ -219,4 +221,10 @@ public class BeanTasks implements Serializable {
 		this.listOfCategories = listOfCategories;
 	}
 
+	public String formatDate(Date date){
+		if (date == null){
+			return "";
+		}
+		return DateUtil.toString(date);
+	}
 }
