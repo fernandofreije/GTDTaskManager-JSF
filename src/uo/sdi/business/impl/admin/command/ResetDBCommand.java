@@ -55,7 +55,7 @@ public class ResetDBCommand implements Command<Void> {
 			for (long k=11; k<=20; k++){
 				task = new Task();
 				task.setTitle("Tarea " + k + " del usuario " + i);
-				task.setPlanned(DateUtil.tomorrow());
+				task.setPlanned(DateUtil.today());
 				task.setUserId(id);
 				tDao.save(task);
 				totalTasks++;
