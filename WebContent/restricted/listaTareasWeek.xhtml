@@ -21,22 +21,27 @@
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
 								action="#{tasks.setTasksInbox}"
-								update=":listTasksForm" />
+								update=":listTasksFormWeek" 
+								id="goToInbox"/>
 							<p:menuitem value="#{msgs.today}"
 								action="#{tasks.setTasksToday}"
-								update=":listTasksForm" />
+								update=":listTasksFormWeek" 
+								id="goToToday"/>
 							<p:menuitem value="#{msgs.week}"
 								action="#{tasks.setTasksWeek}"
-								update=":listTasksForm" />
+								update=":listTasksFormWeek" 
+								id="goToWeek"/>
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
 								actionListener="#{settings.setSpanish}"
-								update=":formMenu: :listTasksForm">
+								update=":formMenu: :listTasksFormWeek"
+								id="cambiarIdiomaES">
 							</p:menuitem>
 							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
 								actionListener="#{settings.setEnglish}"
-								update=":formMenu: :listTasksForm">
+								update=":formMenu: :listTasksFormWeek"
+								id="cambiarIdiomaEN">
 							</p:menuitem>
 						</p:submenu>
 						<p:submenu label="#{login.login}">
@@ -47,7 +52,7 @@
 				</h:form>
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
-				<h:form id="listTasksForm">
+				<h:form id="listTasksFormWeek">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%"
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
@@ -76,7 +81,7 @@
 									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
 									itemValue="#{c.id}" itemLabel="#{c.name}" />
-								<p:ajax listener="#{tasks.edit(t)}"  update="listTasksForm"/>
+								<p:ajax listener="#{tasks.edit(t)}"  update="listTasksFormWeek"/>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">

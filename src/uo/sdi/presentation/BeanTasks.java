@@ -143,6 +143,7 @@ public class BeanTasks implements Serializable {
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
+			this.currentList = resultado;
 			forceUpdateList(); 
 		} catch (BusinessException e) {
 			BusinessCheck.showBusinessError(e.getMessage());

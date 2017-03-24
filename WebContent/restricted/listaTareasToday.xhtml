@@ -21,22 +21,27 @@
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
 								action="#{tasks.setTasksInbox}"
-								update=":listTasksForm" />
+								update=":listTasksFormToday" 
+								id="goToInbox"/>
 							<p:menuitem value="#{msgs.today}"
 								action="#{tasks.setTasksToday}"
-								update=":listTasksForm" />
+								update=":listTasksFormToday" 
+								id="goToToday"/>
 							<p:menuitem value="#{msgs.week}" 
 							action="#{tasks.setTasksWeek}"
-								update=":listTasksForm" />
+								update=":listTasksFormToday"
+								id="goToWeek" />
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"
 								actionListener="#{settings.setSpanish}"
-								update=":formMenu: :listTasksForm">
+								update=":formMenu: :listTasksFormToday"
+								id="cambiarIdiomaES">
 							</p:menuitem>
 							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
 								actionListener="#{settings.setEnglish}"
-								update=":formMenu: :listTasksForm">
+								update=":formMenu: :listTasksFormToday"
+								id="cambiarIdiomaEN">
 							</p:menuitem>
 						</p:submenu>
 						<p:submenu label="#{login.login}">
@@ -47,7 +52,7 @@
 				</h:form>
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
-				<h:form id="listTasksForm">
+				<h:form id="listTasksFormToday">
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%"
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
@@ -69,20 +74,20 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}">
+						<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}" id="columnCategory">
 							<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
 								style="width:150px">
 								<f:selectItem itemLabel="#{msgs.noCategory}"
 									noSelectionOption="true" />
 								<f:selectItems value="#{tasks.listOfCategories}" var="c"
 									itemValue="#{c.id}" itemLabel="#{c.name}" />
-								<p:ajax listener="#{tasks.edit(t)}"  update="listTasksForm"/>
+								<p:ajax listener="#{tasks.edit(t)}"  update="listTasksFormToday"/>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column headerText="#{msgs.created}">
 							<h:outputText value="#{tasks.formatDate(t.created)}" />
 						</p:column>
-						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
+						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}" id="columnPlanned">
 							<p:cellEditor >
 								<f:facet name="output">
 									<h:outputText value="#{tasks.formatDate(t.planned)}" style="color:#{t.isLate()?'red':'black'}"/>
