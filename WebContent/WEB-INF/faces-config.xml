@@ -32,14 +32,9 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>task</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.BeanTask</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>users</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanUsers</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 
 	<navigation-rule>
@@ -118,17 +113,17 @@
 	<navigation-rule>
 		<from-view-id>/restricted/añadirTarea.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{task.addTask}</from-action>
+			<from-action>#{tasks.addTask}</from-action>
 			<from-outcome>inbox</from-outcome>
 			<to-view-id>/restricted/listaTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{task.addTask}</from-action>
+			<from-action>#{tasks.addTask}</from-action>
 			<from-outcome>today</from-outcome>
 			<to-view-id>/restricted/listaTareasToday.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{task.addTask}</from-action>
+			<from-action>#{tasks.addTask}</from-action>
 			<from-outcome>week</from-outcome>
 			<to-view-id>/restricted/listaTareasWeek.xhtml</to-view-id>
 		</navigation-case>

@@ -16,7 +16,7 @@
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.tasks}">
 							<p:menuitem value="#{msgs.addTask}" type="button"
-								action="añadirTarea" />
+								action="añadirTarea.xhtml" />
 						</p:submenu>
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}" action="#{tasks.setTasksInbox}" />
@@ -45,13 +45,13 @@
 					<p:messages id="messages" autoUpdate="true" />
 					<p:panelGrid columns="2" styleClass="formTable">
 						<p:outputLabel for="title" value="#{msgs.title}" />
-						<p:inputText id="title" value="#{task.title}" required="true" 
+						<p:inputText id="title" value="#{tasks.task.titleEditable}" required="true" 
 						requiredMessage="#{msgs.titleIsNotEmpty}"/>
 						<p:outputLabel for="comments" value="#{msgs.comments}" />
-						<p:inputTextarea id="comments" value="#{task.comments}" rows="6"
+						<p:inputTextarea id="comments" value="#{tasks.task.commentsEditable}" rows="6"
 							cols="33" />
 						<p:outputLabel for="categoryMenu" value="#{msgs.category}" />
-						<p:selectOneMenu id="categoryMenu" value="#{task.categoryId}"
+						<p:selectOneMenu id="categoryMenu" value="#{tasks.task.categoryEditable}"
 							style="width:150px">
 							<f:selectItem itemLabel="#{msgs.noCategory}"
 								noSelectionOption="true" />
@@ -59,10 +59,10 @@
 								itemValue="#{c.id}" itemLabel="#{c.name}" />
 						</p:selectOneMenu>
 						<h:outputLabel for="plannedDate" value="#{msgs.planned}" />
-						<p:calendar id="plannedDate" value="#{task.planned}" />
+						<p:calendar id="plannedDate" value="#{tasks.task.plannedEditable}" />
 					</p:panelGrid>
 					<p:commandButton value="#{msgs.add}" id="task_to_add_button"
-						action="#{task.addTask}" styleClass="ui-priority-primary" />
+						action="#{tasks.addTask}" styleClass="ui-priority-primary" />
 				</h:form>
 			</p:layoutUnit>
 		</p:layout>

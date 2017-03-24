@@ -14,8 +14,10 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
+import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.util.FreijeyPabloUtil;
+import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
@@ -39,7 +41,8 @@ public class BeanTasks implements Serializable {
 	private List<Task> selectedTasks;
 	private List<Category> listOfCategories;
 
-	private String taskName;
+	private Task task;
+	private Task taskCategoryId;
 	private String currentList;
 
 	public BeanTasks() {
@@ -51,6 +54,7 @@ public class BeanTasks implements Serializable {
 				.getSessionMap().get("LOGGEDIN_USER");
 		if (listOfTasks == null)
 			setTasksInbox();
+		task = new Task();
 	}
 
 	public String setTasksInbox() {
@@ -65,10 +69,6 @@ public class BeanTasks implements Serializable {
 					.findInboxTasksByUserId(user.getId());
 			List<Task> listaTareasTerminadasInbox = taskService
 					.findFinishedInboxTasksByUserId(user.getId());
-
-			// Ordenamos las listas
-			FreijeyPabloUtil.orderAscending(listaTareasNoTerminadasInbox);
-			FreijeyPabloUtil.orderDescending(listaTareasTerminadasInbox);
 
 			// Metemos en la lista de tareas ambas listas
 			listaTareas.addAll(listaTareasNoTerminadasInbox);
@@ -89,7 +89,6 @@ public class BeanTasks implements Serializable {
 		List<Task> listaTareas;
 		try {
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
-			FreijeyPabloUtil.groupByCategory(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
 			return "exito";
@@ -105,7 +104,6 @@ public class BeanTasks implements Serializable {
 		List<Task> listaTareas;
 		try {
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
-			FreijeyPabloUtil.groupByDay(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
 
@@ -129,24 +127,28 @@ public class BeanTasks implements Serializable {
 	}
 
 	public String addTask() {
-		// Task is created
-		Task task = new Task();
-		task.setTitle(getTaskName());
-
-		// Inyeccion de dependencia???
+		String resultado = "";
+		
+		if (task.getCategoryEditable() != null ) {
+			if (task.getPlannedEditable().equals(DateUtil.today()))
+				resultado = "today";	
+			else if (task.getPlannedEditable().after(DateUtil.today()))
+				resultado = "week";
+		}
+		else
+			resultado = "inbox";
+		
 		task.setUserId(user.getId());
-
 		// Task is registered in db
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
-			forceUpdateList();
+			forceUpdateList(); 
 		} catch (BusinessException e) {
+			BusinessCheck.showBusinessError(e.getMessage());
 			return null;
 		}
-
-		return "exito";
-
+		return resultado;
 	}
 
 	public String edit(Task task) {
@@ -200,12 +202,12 @@ public class BeanTasks implements Serializable {
 		this.selectedTasks = selectedTasks;
 	}
 
-	public void setTaskName(String name) {
-		this.taskName = name;
+	public void setTask(Task task) {
+		this.task = task;
 	}
 
-	public String getTaskName() {
-		return this.taskName;
+	public Task getTask() {
+		return this.task;
 	}
 
 	public List<Category> getListOfCategories() {
@@ -226,5 +228,13 @@ public class BeanTasks implements Serializable {
 			return "";
 		}
 		return DateUtil.toString(date);
+	}
+
+	public Task getTaskCategoryId() {
+		return taskCategoryId;
+	}
+
+	public void setTaskCategoryId(Task taskCategoryId) {
+		this.taskCategoryId = taskCategoryId;
 	}
 }
