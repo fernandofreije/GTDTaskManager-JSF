@@ -66,9 +66,6 @@ public class BeanTasks implements Serializable {
 			List<Task> listaTareasTerminadasInbox = taskService
 					.findFinishedInboxTasksByUserId(user.getId());
 
-			// Ordenamos las listas
-			FreijeyPabloUtil.orderAscending(listaTareasNoTerminadasInbox);
-			FreijeyPabloUtil.orderDescending(listaTareasTerminadasInbox);
 
 			// Metemos en la lista de tareas ambas listas
 			listaTareas.addAll(listaTareasNoTerminadasInbox);
@@ -89,7 +86,6 @@ public class BeanTasks implements Serializable {
 		List<Task> listaTareas;
 		try {
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
-			FreijeyPabloUtil.groupByCategory(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
 			return "exito";
@@ -105,7 +101,6 @@ public class BeanTasks implements Serializable {
 		List<Task> listaTareas;
 		try {
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
-			FreijeyPabloUtil.groupByDay(listaTareas);
 
 			setListOfTasks(new TaskList(listaTareas));
 

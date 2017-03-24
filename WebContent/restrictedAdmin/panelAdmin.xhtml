@@ -45,16 +45,16 @@
 						<p:column headerText="#{msgs.id}">
 							<h:outputText value="#{u.id}" />
 						</p:column>
-						<p:column sortBy="#{u.login}" headerText="#{msgs.login}">
+						<p:column sortBy="#{u.login}" headerText="#{msgs.login}" id="columnLogin">
 							<h:outputText value="#{u.login}" />
 						</p:column>
-						<p:column sortBy="#{u.email}" headerText="#{msgs.email}">
+						<p:column sortBy="#{u.email}" headerText="#{msgs.email}" id="columnEmail">
 							<h:outputText  value="#{u.email}" />
 						</p:column>
 						<p:column headerText="#{msgs.isAdmin}">
 							<h:outputText  value="#{u.isAdmin}" />
 						</p:column>
-						<p:column sortBy="#{u.status}" headerText="#{msgs.status}">
+						<p:column sortBy="#{u.status}" headerText="#{msgs.status}" id="columnStatus">
 							<h:outputText   value="#{u.status}" />
 						</p:column>
 						<p:column>
