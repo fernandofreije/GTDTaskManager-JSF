@@ -42,7 +42,6 @@ public class BeanTasks implements Serializable {
 	private List<Category> listOfCategories;
 
 	private Task task;
-	private Task taskCategoryId;
 	private String currentList;
 
 	public BeanTasks() {
@@ -55,6 +54,7 @@ public class BeanTasks implements Serializable {
 		if (listOfTasks == null)
 			setTasksInbox();
 		task = new Task();
+		task.setPlanned(DateUtil.today());
 	}
 
 	public String setTasksInbox() {
@@ -128,28 +128,43 @@ public class BeanTasks implements Serializable {
 
 	public String addTask() {
 		String resultado = "";
-		
-		if (task.getCategoryEditable() != null ) {
+
+		// Si tiene categoria
+		if (task.getCategoryEditable() != null) {
+			// Redireccionamos a hoy si está planeada para hoy
 			if (task.getPlannedEditable().equals(DateUtil.today()))
-				resultado = "today";	
+				resultado = "today";
+			// Redireccionamos a semana si está planeada con fecha posterior a
+			// hoy
 			else if (task.getPlannedEditable().after(DateUtil.today()))
 				resultado = "week";
+			else
+				resultado = "inbox";
 		}
+		// Si no tiene categoria redireccionamos a inbox
 		else
 			resultado = "inbox";
-		
+
 		task.setUserId(user.getId());
 		// Task is registered in db
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
 			this.currentList = resultado;
-			forceUpdateList(); 
+			forceUpdateList(); // Actualizamos las listas de db
+			clearFields();     // Limpiamos los campos del formulario
 		} catch (BusinessException e) {
 			BusinessCheck.showBusinessError(e.getMessage());
 			return null;
 		}
 		return resultado;
+	}
+
+	private void clearFields() {
+		this.task.setTitle("");
+		this.task.setComments("");
+		this.task.setCategoryId(null);
+		this.task.setPlanned(DateUtil.today());
 	}
 
 	public String edit(Task task) {
@@ -224,18 +239,10 @@ public class BeanTasks implements Serializable {
 		this.listOfCategories = listOfCategories;
 	}
 
-	public String formatDate(Date date){
-		if (date == null){
+	public String formatDate(Date date) {
+		if (date == null) {
 			return "";
 		}
 		return DateUtil.toString(date);
-	}
-
-	public Task getTaskCategoryId() {
-		return taskCategoryId;
-	}
-
-	public void setTaskCategoryId(Task taskCategoryId) {
-		this.taskCategoryId = taskCategoryId;
 	}
 }

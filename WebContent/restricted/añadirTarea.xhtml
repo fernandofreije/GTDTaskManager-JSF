@@ -46,10 +46,10 @@
 					<p:panelGrid columns="2" styleClass="formTable">
 						<p:outputLabel for="title" value="#{msgs.title}" />
 						<p:inputText id="title" value="#{tasks.task.titleEditable}" required="true" 
-						requiredMessage="#{msgs.titleIsNotEmpty}"/>
+						requiredMessage="#{msgs.titleIsNotEmpty}" placeholder="#{msgs.phTitle}"/>
 						<p:outputLabel for="comments" value="#{msgs.comments}" />
 						<p:inputTextarea id="comments" value="#{tasks.task.commentsEditable}" rows="6"
-							cols="33" />
+							cols="33" placeholder="#{msgs.phComments}" />
 						<p:outputLabel for="categoryMenu" value="#{msgs.category}" />
 						<p:selectOneMenu id="categoryMenu" value="#{tasks.task.categoryEditable}"
 							style="width:150px">
@@ -59,7 +59,8 @@
 								itemValue="#{c.id}" itemLabel="#{c.name}" />
 						</p:selectOneMenu>
 						<h:outputLabel for="plannedDate" value="#{msgs.planned}" />
-						<p:calendar id="plannedDate" value="#{tasks.task.plannedEditable}" />
+						<p:calendar id="plannedDate" value="#{tasks.task.plannedEditable}" 
+						required="true" requiredMessage="#{msgs.plannedIsNotEmpty}"/>
 					</p:panelGrid>
 					<p:commandButton value="#{msgs.add}" id="task_to_add_button"
 						action="#{tasks.addTask}" styleClass="ui-priority-primary" />
