@@ -16,7 +16,8 @@
 					<p:menu toggleable="true">
 						<p:submenu label="#{msgs.tasks}">
 						<p:menuitem value="#{msgs.addTask}"
-									action="añadirTarea.xhtml"/>
+									action="añadirTarea.xhtml"
+									id="goToAddTask"/>
 						</p:submenu>
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
@@ -45,7 +46,7 @@
 							</p:menuitem>
 						</p:submenu>
 						<p:submenu label="#{login.login}">
-							<p:menuitem value="#{msgs.signOut}" action="#{user.logout}"
+							<p:menuitem id="signOutLink" value="#{msgs.signOut}" action="#{user.logout}"
 								icon="fa fa-sign-out" />
 						</p:submenu>
 					</p:menu>
