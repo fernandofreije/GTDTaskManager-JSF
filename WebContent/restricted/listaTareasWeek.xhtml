@@ -64,7 +64,7 @@
     					</f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
-						<p:column sortBy="#{t.title}" headerText="#{msgs.title}">
+						<p:column sortBy="#{t.title}" headerText="#{msgs.title}" id="columnTitle">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{t.title}" />
@@ -88,7 +88,7 @@
 						<p:column headerText="#{msgs.created}">
 							<h:outputText value="#{tasks.formatDate(t.created)}" />
 						</p:column>
-						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}">
+						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}" id="columnPlanned">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tasks.formatDate(t.planned)}" />
