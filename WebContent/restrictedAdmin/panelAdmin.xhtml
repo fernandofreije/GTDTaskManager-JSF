@@ -36,7 +36,7 @@
 			</p:layoutUnit>
 			<p:layoutUnit position="center">
 				<h:form id="formUsers">
-					<p:messages styleClass="errorMessage" />
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 					<p:dataTable id="usersTable" value="#{users.users}" var="u"
 						selection="#{users.selectedUsers}" rowKey="#{u.id}"
 						styleClass="table table-striped" style="margin-bottom:0">
@@ -87,9 +87,9 @@
 								update=":formUsers" />
 							<p:confirmDialog global="true" showEffect="fade"
 								hideEffect="fade">
-								<p:commandButton value="#{msgs.yes}" type="button"
+								<p:commandButton value="#{msgs.yes}" type="button" id="buttonYes"
 									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="{msgs.no}" type="button"
+								<p:commandButton value="{msgs.no}" type="button" id="buttonNo"
 									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
 						</f:facet>

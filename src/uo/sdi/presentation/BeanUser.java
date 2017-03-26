@@ -59,6 +59,7 @@ public class BeanUser implements Serializable {
 		cloneUser.setPassword(getPassword());
 		try {
 			userService.registerUser(cloneUser);
+			BusinessCheck.showBusinessInfo(MessageProvider.getValue("registerOk"));
 		} catch (BusinessException b) {
 			BusinessCheck.showBusinessError(b.getMessage());
 			return null;

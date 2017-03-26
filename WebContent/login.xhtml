@@ -9,7 +9,7 @@
 	</h:head>
 	<h:body>
 		<h:form id="loginForm">
-		<p:messages id="messages" autoUpdate="true" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
 			<p:panelGrid columns="2" styleClass="formTable">
 			  <h:outputLabel for="login" value="#{msgs.login}" />
 			  <p:inputText id="login" value="#{login.login}" />

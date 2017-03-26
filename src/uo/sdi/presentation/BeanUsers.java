@@ -113,10 +113,7 @@ public class BeanUsers {
 			for (User u : selectedUsers) {
 				// The user can not delete to himself
 				if (u.equals(userSession)) {
-					FacesMessage message = new FacesMessage(
-							"No se puede borrar a si mismo");
-					FacesContext context = FacesContext.getCurrentInstance();
-					context.addMessage(null, message);
+					BusinessCheck.showBusinessError(MessageProvider.getValue("adminDeleteHimself"));
 				} else {
 					service.deepDeleteUser(u.getId());
 					setListOfUsers();
