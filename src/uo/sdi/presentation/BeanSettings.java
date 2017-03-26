@@ -7,6 +7,8 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import alb.util.log.Log;
+
 
 @ManagedBean(name = "settings")
 @SessionScoped
@@ -35,9 +37,9 @@ public class BeanSettings implements Serializable {
 		locale = SPANISH;
 		try {
 			FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-			System.out.println("Language changed to Spanish");
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			Log.info("Language changed to Spanish");
+		} catch (Exception e) {
+			Log.error(e);
 		}
 	}
 
@@ -45,9 +47,9 @@ public class BeanSettings implements Serializable {
 		locale = ENGLISH;
 		try {
 			FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-			System.out.println("Language changed to English");
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			Log.info("Language changed to English");
+		} catch (Exception e) {
+			Log.error(e);
 		}
 	}
 

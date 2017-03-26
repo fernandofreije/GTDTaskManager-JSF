@@ -47,7 +47,9 @@ public class BeanUsers {
 		AdminService adminService = Services.getAdminService();
 		try {
 			users = adminService.findAllUsers();
+			Log.info("List of users refreshed");
 		} catch (BusinessException e) {
+			Log.error(e);
 			BusinessCheck.showBusinessError(e.getMessage());
 		}
 	}
@@ -56,8 +58,10 @@ public class BeanUsers {
 		AdminService adminService = Services.getAdminService();
 		try {
 			adminService.resetDB();
+			Log.info("Database reseted");
 			setListOfUsers();
 		} catch (BusinessException e) {
+			Log.error(e);
 			BusinessCheck.showBusinessError(e.getMessage());
 		}
 		return null;
@@ -65,22 +69,20 @@ public class BeanUsers {
 
 	public String toggleActiveUser(User user) {
 		AdminService adminService = Services.getAdminService();
-		String action = "activating/deactivating";
 		try {
 			if (user.getStatus().equals(UserStatus.ENABLED)) {
-				action = "deactivating";
 				adminService.disableUser(user.getId());
+				Log.info("User "+user.getLogin()+" succesfully deactivated");
 			} else {
-				action = "activating";
 				adminService.enableUser(user.getId());
+				Log.info("User "+user.getLogin()+" succesfully activated");
 			}
 			setListOfUsers();
 		} catch (BusinessException e1) {
+			Log.error(e1);
 			BusinessCheck.showBusinessError(e1.getMessage());
 		}
-
-		Log.info(String.format("%s user with id %d was sucessful", action,
-				user.getId()));
+		
 		return null;
 
 	}
@@ -90,6 +92,7 @@ public class BeanUsers {
 		try {
 			// The user can not delete to himself
 			if (user.equals(userSession)) {
+				Log.info("An admin cannot delete himself");
 				BusinessCheck.showBusinessError(MessageProvider.getValue("adminDeleteHimself"));
 			} else {
 				service.deepDeleteUser(user.getId());
@@ -97,6 +100,7 @@ public class BeanUsers {
 			}
 
 		} catch (BusinessException e1) {
+			Log.error(e1);
 			BusinessCheck.showBusinessError(e1.getMessage());
 		}
 
@@ -111,16 +115,21 @@ public class BeanUsers {
 			for (User u : selectedUsers) {
 				// The user can not delete to himself
 				if (u.equals(userSession)) {
+					Log.info("An admin cannot delete himself");
 					BusinessCheck.showBusinessError(MessageProvider.getValue("adminDeleteHimself"));
 				} else {
 					service.deepDeleteUser(u.getId());
+					Log.info(String.format("User with id %d was deleted sucessfully",
+							u.getId()));
 					setListOfUsers();
 				}
 			}
-
+		
 		} catch (BusinessException e1) {
+			Log.error(e1);
 			BusinessCheck.showBusinessError(e1.getMessage());
 		}
+		
 		return null;
 	}
 

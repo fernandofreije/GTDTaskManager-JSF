@@ -9,9 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
-
 import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessCheck;
@@ -73,7 +70,8 @@ public class BeanTasks implements Serializable {
 			listaTareas.addAll(listaTareasTerminadasInbox);
 
 			setListOfTasks(new TaskList(listaTareas));
-
+			
+			Log.info("Inbox list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -89,6 +87,8 @@ public class BeanTasks implements Serializable {
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
 
 			setListOfTasks(new TaskList(listaTareas));
+			
+			Log.info("Today list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -104,7 +104,7 @@ public class BeanTasks implements Serializable {
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
 
 			setListOfTasks(new TaskList(listaTareas));
-
+			Log.info("Week list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -117,8 +117,9 @@ public class BeanTasks implements Serializable {
 		try {
 			for (Task t : selectedTasks) {
 				taskService.markTaskAsFinished(t.getId());
-			}
-			forceUpdateList();
+				Log.info("Finished task: "+ task.getTitle());
+			}	
+			forceUpdateList();		
 		} catch (BusinessException e) {
 			Log.error(e);
 		}
@@ -148,10 +149,12 @@ public class BeanTasks implements Serializable {
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
+			Log.info("Added task: "+task.getTitle());
 			this.currentList = resultado;
 			forceUpdateList(); // Actualizamos las listas de db
 			clearFields();     // Limpiamos los campos del formulario
 		} catch (BusinessException e) {
+			Log.error(e);
 			BusinessCheck.showBusinessError(e.getMessage());
 			return null;
 		}
@@ -171,8 +174,10 @@ public class BeanTasks implements Serializable {
 		// Task is updated in db
 		try {
 			taskService.updateTask(task);
+			Log.info("Edited task: "+task.getTitle());
 			forceUpdateList();
 		} catch (BusinessException e) {
+			Log.error(e);
 			return null;
 		}
 		return "exito";
@@ -229,6 +234,7 @@ public class BeanTasks implements Serializable {
 		try {
 			listOfCategories = taskService.findCategoriesByUserId(user.getId());
 		} catch (BusinessException e) {
+			Log.error(e);
 		}
 		return listOfCategories;
 	}

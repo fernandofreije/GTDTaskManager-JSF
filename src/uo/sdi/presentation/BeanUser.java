@@ -1,11 +1,13 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import alb.util.log.Log;
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessCheck;
@@ -41,11 +43,13 @@ public class BeanUser implements Serializable {
 		try {
 			user = userService.findLoggableUser(getLogin());
 		} catch (BusinessException b) {
+			Log.error(b);
 			BusinessCheck.showBusinessError(b.getMessage());
 			return null;
 		}
 		//If user is already registered.
 		if (user != null){
+			Log.info("User "+ login +" is already registered");
 			BusinessCheck.showBusinessError(MessageProvider.getValue("userAlreadyExist"));
 			return null;
 		}
@@ -56,8 +60,10 @@ public class BeanUser implements Serializable {
 		cloneUser.setPassword(getPassword());
 		try {
 			userService.registerUser(cloneUser);
+			Log.info("New user "+ user +" successfully registered");
 			BusinessCheck.showBusinessInfo(MessageProvider.getValue("registerOk"));
 		} catch (BusinessException b) {
+			Log.error(b);
 			BusinessCheck.showBusinessError(b.getMessage());
 			return null;
 		}
@@ -72,6 +78,7 @@ public class BeanUser implements Serializable {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(false);
 		session.invalidate();
+		Log.info("User "+login+" logout" );
 		return "exito";
 	}
 

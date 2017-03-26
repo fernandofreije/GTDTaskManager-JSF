@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import alb.util.log.Log;
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessCheck;
@@ -32,8 +33,10 @@ public class BeanLogin implements Serializable {
 		User user = null;
 		try {
 			user = userService.findLoggableUser(getLogin());
+			Log.info("User "+ login +" found in database");
 		} catch (BusinessException b) {
 			BusinessCheck.showBusinessError(b.getMessage());
+			Log.error(b);
 			return null;
 		}
 		//If the user exists, session does not contain and user and is new
@@ -47,15 +50,22 @@ public class BeanLogin implements Serializable {
 				
 				BusinessCheck.showBusinessInfo(MessageProvider.getValue("loginOk"));
 				//If the user is admin
-				if (user.getIsAdmin())
+				if (user.getIsAdmin()){
+					Log.info("Admin user "+ login +" succesfully logged in");
 					return "exitoAdmin";
+				}
+					
 				//If the user is not admin
-				else
+				else{
+					Log.info("User "+login+" succesfully logged in");
 					return "exito";
+				}
+					
 				
 			}
 			//If the password is incorrect
 			else{
+				Log.info("Incorrect password: "+password);
 				BusinessCheck.showBusinessError(MessageProvider.getValue("incorrectPassword"));
 				setIsSignedIn(false);
 				return null;
@@ -63,6 +73,7 @@ public class BeanLogin implements Serializable {
 		}
 		//Otherwise
 		else {
+			Log.info("Incorrect login: "+login);
 			BusinessCheck.showBusinessError(MessageProvider.getValue("incorrectLogin"));
 			setIsSignedIn(false);
 			return null;
