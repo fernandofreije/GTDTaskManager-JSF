@@ -46,6 +46,7 @@ public class ResetDBCommand implements Command<Void> {
 				if (k%2 == 0)
 					daysToAdd++;
 				task.setPlanned(DateUtil.addDays(DateUtil.today(), daysToAdd));
+				task.setComments("");
 				task.setUserId(id);
 				tDao.save(task);
 				totalTasks++;
@@ -56,6 +57,7 @@ public class ResetDBCommand implements Command<Void> {
 				task = new Task();
 				task.setTitle("Tarea " + k + " del usuario " + i);
 				task.setPlanned(DateUtil.today());
+				task.setComments("");
 				task.setUserId(id);
 				tDao.save(task);
 				totalTasks++;
@@ -80,6 +82,7 @@ public class ResetDBCommand implements Command<Void> {
 					task = new Task();
 					task.setTitle("Tarea " + totalTasks + " del usuario " + i + " de la categoría " + j);
 					task.setPlanned(DateUtil.yesterday());
+					task.setComments("");
 					task.setCategoryId(categoryId);
 					task.setUserId(id);
 					tDao.save(task);
