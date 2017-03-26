@@ -64,8 +64,8 @@
     					</f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
-						<p:column headerText="#{msgs.title}">
-							<p:cellEditor>
+						<p:column headerText="#{msgs.title}" id="columnTitle">
+							<p:cellEditor id="titleCell">
 								<f:facet name="output">
 									<h:outputText value="#{t.title}" />
 								</f:facet>

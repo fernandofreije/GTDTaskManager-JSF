@@ -71,8 +71,8 @@
 							style="width:16px; text-align:center" />
 
 						<p:column headerText="#{msgs.title}" filterBy="#{t.title}"
-							filterMatchMode="contains">
-							<p:cellEditor>
+							filterMatchMode="contains" id="columnTitle">
+							<p:cellEditor id="titleCell">
 								<f:facet name="output">
 									<h:outputText value="#{t.title}"
 									style="color:#{t.isTaskFinished()?'green':'black'}"/>
@@ -109,11 +109,11 @@
 						<p:column filterBy="#{t.hasBeenFinished()}"
 							headerText="#{msgs.finished}" filterMatchMode="equals"
 							filteredValue="#{t.finished}" id="columnFinished">
-							<f:facet name="filter">
-								<p:selectOneButton onchange="PF('tasksTable').filter()">
+							<f:facet name="filter" id="filterFinishedFacet">
+								<p:selectOneButton id="filterFinishedButton" onchange="PF('tasksTable').filter()">
 									<f:converter converterId="javax.faces.Boolean" />
-									<f:selectItem itemLabel="All" itemValue="" />
-									<f:selectItem itemLabel="Not Finished" itemValue="false" />
+									<f:selectItem id="filterALL" itemLabel="All" itemValue="" />
+									<f:selectItem id="filterNotFinished" itemLabel="Not Finished" itemValue="false" />
 								</p:selectOneButton>
 							</f:facet>
 							<h:outputText value="#{tasks.formatDate(t.finished)}" />
