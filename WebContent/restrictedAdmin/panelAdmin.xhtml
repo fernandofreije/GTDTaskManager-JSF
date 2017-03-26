@@ -28,8 +28,8 @@
 							</p:menuitem>
 						</p:submenu>
 						<p:submenu label="#{login.login}">
-							<p:menuitem id="signOutLink" value="#{msgs.signOut}" action="#{user.logout}"
-								icon="fa fa-sign-out" />
+							<p:menuitem id="signOutLink" value="#{msgs.signOut}"
+								action="#{user.logout}" icon="fa fa-sign-out" />
 						</p:submenu>
 					</p:menu>
 				</h:form>
@@ -45,30 +45,31 @@
 						<p:column headerText="#{msgs.id}">
 							<h:outputText value="#{u.id}" />
 						</p:column>
-						<p:column sortBy="#{u.login}" headerText="#{msgs.login}" id="columnLogin">
+						<p:column sortBy="#{u.login}" headerText="#{msgs.login}"
+							id="columnLogin">
 							<h:outputText value="#{u.login}" />
 						</p:column>
-						<p:column sortBy="#{u.email}" headerText="#{msgs.email}" id="columnEmail">
-							<h:outputText  value="#{u.email}" />
+						<p:column sortBy="#{u.email}" headerText="#{msgs.email}"
+							id="columnEmail">
+							<h:outputText value="#{u.email}" />
 						</p:column>
 						<p:column headerText="#{msgs.isAdmin}">
-							<h:outputText  value="#{u.isAdmin}" />
+							<h:outputText value="#{u.isAdmin}" />
 						</p:column>
-						<p:column sortBy="#{u.status}" headerText="#{msgs.status}" id="columnStatus">
-							<h:outputText   value="#{u.status}" />
+						<p:column sortBy="#{u.status}" headerText="#{msgs.status}"
+							id="columnStatus">
+							<h:outputText value="#{u.status}" />
 						</p:column>
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="#{msgs.cambiarEstado}" />
 							</f:facet>
-							<p:commandButton
-								id="disableButton"
+							<p:commandButton id="disableButton"
 								rendered="#{!u.isAdmin and u.status eq 'ENABLED'}"
 								value="#{msgs.desactivar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-close" process="usersTable"
 								update=":formUsers" />
-							<p:commandButton
-								id="enableButton"
+							<p:commandButton id="enableButton"
 								rendered="#{!u.isAdmin and u.status eq 'DISABLED'}"
 								value="#{msgs.activar}" action="#{users.toggleActiveUser(u)}"
 								icon="fa fa-fw fa-check" process="usersTable"
@@ -77,9 +78,20 @@
 						<f:facet name="footer">
 							<p:commandButton id="deleteButton" process="usersTable"
 								value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
+								update=":formUsers">
+								<p:confirm header="{msgs.confirmation}" message="{msgs.areYouSure}"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:commandButton id="resetDBButton" process="usersTable"
+								value="#{msgs.reset}" action="#{users.resetDatabase()}"
 								update=":formUsers" />
-							<p:commandButton id="resetDBButton" process="usersTable" value="#{msgs.reset}"
-								action="#{users.resetDatabase()}" update=":formUsers" />
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="#{msgs.yes}" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="{msgs.no}" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
 						</f:facet>
 					</p:dataTable>
 				</h:form>
