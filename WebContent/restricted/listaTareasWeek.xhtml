@@ -59,14 +59,14 @@
 						styleClass="table table-striped" style="width:80%"
 						selection="#{tasks.selectedTasks}" editable="true" editMode="cell"
 						widgetVar="tasksTable">
-						<p:ajax event="cellEdit" listener="#{tasks.editTask(t)}" oncomplete="onCellEdit()"/>
+						<p:ajax event="cellEdit" listener="#{tasks.edit(t)}" oncomplete="onCellEdit()"/>
 						<f:facet name="header">
        					<h:outputText value="#{msgs.week}" />
     					</f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px; text-align:center" />
 						<p:column sortBy="#{t.title}" headerText="#{msgs.title}" id="columnTitle">
-							<p:cellEditor id="titleCell">
+							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{t.title}" />
 								</f:facet>
@@ -90,7 +90,7 @@
 							<h:outputText value="#{tasks.formatDate(t.created)}" />
 						</p:column>
 						<p:column sortBy="#{t.planned}" headerText="#{msgs.planned}" id="columnPlanned">
-							<p:cellEditor id="plannedCell">
+							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tasks.formatDate(t.planned)}" />
 								</f:facet>
