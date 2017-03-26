@@ -1,8 +1,6 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -14,7 +12,6 @@ import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.User;
-import alb.util.log.Log;
 
 /**
  * ManagedBean to manage the actions of the user

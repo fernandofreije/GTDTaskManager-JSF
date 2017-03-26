@@ -1,7 +1,6 @@
 package uo.sdi.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import uo.sdi.business.impl.util.FreijeyPabloUtil;

@@ -1,9 +1,6 @@
 package uo.sdi.presentation;
-
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +13,6 @@ import uo.sdi.business.Services;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.util.FreijeyPabloUtil;
-import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;

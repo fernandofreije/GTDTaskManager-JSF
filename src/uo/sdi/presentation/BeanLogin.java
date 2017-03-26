@@ -13,7 +13,6 @@ import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.util.MessageProvider;
 import uo.sdi.dto.User;
-import alb.util.log.Log;
 
 
 @ManagedBean(name = "login")
