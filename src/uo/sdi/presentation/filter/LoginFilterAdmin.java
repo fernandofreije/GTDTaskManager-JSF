@@ -21,7 +21,7 @@ import uo.sdi.dto.types.UserStatus;
 /**
  * Servlet Filter implementation class LoginFilterAdmin
  */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/restrictedAdmin/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/login.xhtml") })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/restrictedAdmin/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/login.xhtml"), @WebInitParam(name = "AdminParam", value = "/restricted/listaTareasInbox.xhtml") })
 public class LoginFilterAdmin implements Filter {
 
 	FilterConfig config = null;
@@ -66,7 +66,7 @@ public class LoginFilterAdmin implements Filter {
 			User user = (User) session.getAttribute("LOGGEDIN_USER");
 			//Si no es admin, redirección al formulario de login
 			if (!user.getIsAdmin()){
-				String loginForm = config.getInitParameter("LoginParam");
+				String loginForm = config.getInitParameter("AdminParam");
 				res.sendRedirect(req.getContextPath() + loginForm);
 				return;
 			}
