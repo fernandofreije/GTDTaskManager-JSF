@@ -79,7 +79,7 @@
 							<p:commandButton id="deleteButton" process="usersTable"
 								value="#{msgs.eliminar}" action="#{users.deleteUsers()}"
 								update=":formUsers">
-								<p:confirm header="{msgs.confirmation}" message="{msgs.areYouSure}"
+								<p:confirm header="#{msgs.confirmation}" message="#{msgs.areYouSure}"
 									icon="ui-icon-alert" />
 							</p:commandButton>
 							<p:commandButton id="resetDBButton" process="usersTable"
@@ -89,7 +89,7 @@
 								hideEffect="fade">
 								<p:commandButton value="#{msgs.yes}" type="button" id="buttonYes"
 									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="{msgs.no}" type="button" id="buttonNo"
+								<p:commandButton value="#{msgs.no}" type="button" id="buttonNo"
 									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
 						</f:facet>
