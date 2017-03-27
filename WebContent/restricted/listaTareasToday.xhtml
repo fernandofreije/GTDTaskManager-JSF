@@ -32,6 +32,18 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				<p:column headerText="#{msgs.comments}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{t.comments}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea id="commentsInput" rows="6" cols="33"
+								value="#{t.commentsEditable}">
+							</p:inputTextarea>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 				<p:column sortBy="#{t.categoryId}" headerText="#{msgs.category}"
 					id="columnCategory">
 					<p:selectOneMenu id="categoryMenu" value="#{t.categoryEditable}"
