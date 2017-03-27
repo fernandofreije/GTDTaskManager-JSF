@@ -17,21 +17,21 @@
 						<p:submenu label="#{msgs.tasks}">
 						<p:menuitem value="#{msgs.addTask}"
 									action="añadirTarea.xhtml"
-									id="goToAddTask"/>
+									id="goToAddTask" icon="fa fa-plus"/>
 						</p:submenu>
 						<p:submenu label="#{msgs.lists}">
 							<p:menuitem value="#{msgs.inbox}"
 								action="#{tasks.setTasksInbox}"
 								update=":listTasksFormWeek" 
-								id="goToInbox"/>
+								id="goToInbox" icon="fa fa-list"/>
 							<p:menuitem value="#{msgs.today}"
 								action="#{tasks.setTasksToday}"
 								update=":listTasksFormWeek" 
-								id="goToToday"/>
+								id="goToToday" icon="fa fa-list"/>
 							<p:menuitem value="#{msgs.week}"
 								action="#{tasks.setTasksWeek}"
 								update=":listTasksFormWeek" 
-								id="goToWeek"/>
+								id="goToWeek" icon="fa fa-list"/>
 						</p:submenu>
 						<p:submenu label="#{msgs.cambiarIdioma}">
 							<p:menuitem value="#{msgs.enlaceIdiomaES}"

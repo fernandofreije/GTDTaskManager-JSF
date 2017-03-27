@@ -64,7 +64,7 @@ public class LoginFilterAdmin implements Filter {
 		//Si hay login
 		else{
 			User user = (User) session.getAttribute("LOGGEDIN_USER");
-			//Si no es admin, redirección al formulario de login
+			//Si no es admin, redirección a la pagina de usuario
 			if (!user.getIsAdmin()){
 				String loginForm = config.getInitParameter("AdminParam");
 				res.sendRedirect(req.getContextPath() + loginForm);

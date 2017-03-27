@@ -29,6 +29,8 @@ public class LoggingInitialization implements ServletContextListener {
 			case "TRACE": Log.setLogLevel(LogLevel.TRACE); break; // Nivel máximo de detalle de lo que hace la aplicación.
 			case "ALL": Log.setLogLevel(LogLevel.ALL); break;
 		}
+		
+		Log.setLogLevel(LogLevel.DEBUG);
 	}
 
 }

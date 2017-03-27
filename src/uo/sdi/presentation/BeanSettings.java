@@ -2,14 +2,17 @@ package uo.sdi.presentation;
 
 import java.io.Serializable;
 import java.util.Locale;
-
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
 import alb.util.log.Log;
 
-
+/**
+ * ManagedBean to manage the settings of the application.
+ * 
+ * @author Pablo and Fernando
+ * 
+ */
 @ManagedBean(name = "settings")
 @SessionScoped
 public class BeanSettings implements Serializable {
@@ -18,38 +21,33 @@ public class BeanSettings implements Serializable {
 	private static final Locale SPANISH = new Locale("es");
 	private Locale locale = new Locale("en");
 
-	@ManagedProperty(value = "#{user}")
-	private BeanUser user;
-
-	public BeanUser getUser() {
-		return user;
-	}
-
-	public void setUser(BeanUser user) {
-		this.user = user;
-	}
-
 	public Locale getLocale() {
 		return (locale);
 	}
 
+	/**
+	 * Set the locale to Spanish
+	 */
 	public void setSpanish(ActionEvent event) {
 		locale = SPANISH;
 		try {
 			FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-			Log.info("Language changed to Spanish");
+			Log.debug("Language changed to Spanish");
 		} catch (Exception e) {
-			Log.error(e);
+			Log.debug(e);
 		}
 	}
 
+	/**
+	 * Set the locale to English
+	 */
 	public void setEnglish(ActionEvent event) {
 		locale = ENGLISH;
 		try {
 			FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-			Log.info("Language changed to English");
+			Log.debug("Language changed to English");
 		} catch (Exception e) {
-			Log.error(e);
+			Log.debug(e);
 		}
 	}
 

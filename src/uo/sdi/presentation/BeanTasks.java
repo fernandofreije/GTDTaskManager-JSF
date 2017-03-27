@@ -1,4 +1,5 @@
 package uo.sdi.presentation;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +21,7 @@ import alb.util.date.DateUtil;
 import alb.util.log.Log;
 
 /**
- * ManagedBean to manage the listing of tasks of the user logged in
+ * ManagedBean to manage the lists of tasks of the user logged in
  * 
  * @author Pablo and Fernando
  * 
@@ -31,13 +32,14 @@ public class BeanTasks implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private Task task;
+
 	private TaskList listOfTasks;
 	private List<Task> listOfFinishedTasks;
 	private List<Task> selectedTasks;
-	private List<Category> listOfCategories;
-
-	private Task task;
 	private String currentList;
+
+	private List<Category> listOfCategories;
 
 	public BeanTasks() {
 	}
@@ -52,9 +54,12 @@ public class BeanTasks implements Serializable {
 		task.setPlanned(DateUtil.today());
 	}
 
-	public String setTasksInbox() {
+	/**
+	 * Method to update the list of tasks of inbox whenever an operation is
+	 * performed in the system
+	 */
+	public void setTasksInbox() {
 		TaskService taskService = Services.getTaskService();
-
 		try {
 			List<Task> listaTareas = new ArrayList<Task>();
 			currentList = "inbox";
@@ -68,63 +73,78 @@ public class BeanTasks implements Serializable {
 			// Metemos en la lista de tareas ambas listas
 			listaTareas.addAll(listaTareasNoTerminadasInbox);
 			listaTareas.addAll(listaTareasTerminadasInbox);
-
 			setListOfTasks(new TaskList(listaTareas));
 			
-			Log.info("Inbox list of tasks refreshed");
-			return "exito";
+			Log.debug("Inbox list of tasks refreshed");
 		} catch (BusinessException e) {
-			Log.error(e);
-			return "fracaso";
+			Log.debug(e);
 		}
 	}
-
-	public String setTasksToday() {
+	
+	/**
+	 * Method to update the list of tasks of today whenever an operation is
+	 * performed in the system
+	 */
+	public void setTasksToday() {
 		currentList = "today";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
 		try {
+			// Metemos en la lista de tareas las listas de hoy
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
-
 			setListOfTasks(new TaskList(listaTareas));
-			
-			Log.info("Today list of tasks refreshed");
-			return "exito";
+
+			Log.debug("Today list of tasks refreshed");
 		} catch (BusinessException e) {
-			Log.error(e);
-			return "fracaso";
+			Log.debug(e);
 		}
 	}
-
-	public String setTasksWeek() {
+	
+	/**
+	 * Method to update the list of tasks of week whenever an operation is
+	 * performed in the system
+	 */
+	public void setTasksWeek() {
 		currentList = "week";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
 		try {
+			// Metemos en la lista de tareas las listas de week
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
-
 			setListOfTasks(new TaskList(listaTareas));
-			Log.info("Week list of tasks refreshed");
-			return "exito";
+			
+			Log.debug("Week list of tasks refreshed");
 		} catch (BusinessException e) {
-			Log.error(e);
-			return "fracaso";
+			Log.debug(e);
 		}
 	}
-
-	public void finishTasks() {
+	
+	/**
+	 * Mark a list of selected tasks as finished
+	 * @return null because the page is ajaxified
+	 */
+	public String finishTasks() {
 		TaskService taskService = Services.getTaskService();
 		try {
 			for (Task t : selectedTasks) {
 				taskService.markTaskAsFinished(t.getId());
-				Log.info("Finished task: "+ task.getTitle());
-			}	
-			forceUpdateList();		
+				Log.debug("Finished task: " + task.getTitle());
+			}
+			forceUpdateList();
 		} catch (BusinessException e) {
-			Log.error(e);
+			Log.debug(e);
+			BusinessCheck.showBusinessError(e.getMessage());
 		}
+		return null;
 	}
-
+	/**
+	 * Add a Task to the list of tasks.
+	 * @return String containing the next view to show.
+	 * It could be:
+	 * 	- Inbox if the tasks has no category
+	 * 	- Today if the task has category and it is planned for today
+	 *  - Week if the task has category and it is planned for the future
+	 */
 	public String addTask() {
 		String resultado = "";
 
@@ -149,40 +169,49 @@ public class BeanTasks implements Serializable {
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
-			Log.info("Added task: "+task.getTitle());
+			Log.debug("Added task: " + task.getTitle());
 			this.currentList = resultado;
 			forceUpdateList(); // Actualizamos las listas de db
-			clearFields();     // Limpiamos los campos del formulario
+			clearFields(); // Limpiamos los campos del formulario
 		} catch (BusinessException e) {
-			Log.error(e);
+			Log.debug(e);
 			BusinessCheck.showBusinessError(e.getMessage());
 			return null;
 		}
 		return resultado;
 	}
 
+	/**
+	 * Method to clear the fields of the form after the task is added.
+	 */
 	private void clearFields() {
 		this.task.setTitle("");
 		this.task.setComments("");
 		this.task.setCategoryId(null);
 		this.task.setPlanned(DateUtil.today());
 	}
-
+	
+	/**
+	 * Edit a given task on the fly
+	 * @return null because the page is ajaxified
+	 */
 	public String edit(Task task) {
 		// Find the task we want to edit
 		TaskService taskService = Services.getTaskService();
 		// Task is updated in db
 		try {
 			taskService.updateTask(task);
-			Log.info("Edited task: "+task.getTitle());
+			Log.debug("Edited task: " + task.getTitle());
 			forceUpdateList();
 		} catch (BusinessException e) {
-			Log.error(e);
-			return null;
+			Log.debug(e);
 		}
-		return "exito";
+		return null;
 	}
 
+	/**
+	 * Update the list depending on the current list you are viewing 
+	 */
 	public void forceUpdateList() {
 		switch (currentList) {
 		case "inbox":
@@ -234,7 +263,7 @@ public class BeanTasks implements Serializable {
 		try {
 			listOfCategories = taskService.findCategoriesByUserId(user.getId());
 		} catch (BusinessException e) {
-			Log.error(e);
+			Log.debug(e);
 		}
 		return listOfCategories;
 	}
