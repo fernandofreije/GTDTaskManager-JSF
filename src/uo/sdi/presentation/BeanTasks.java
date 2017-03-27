@@ -93,7 +93,6 @@ public class BeanTasks implements Serializable {
 			// Metemos en la lista de tareas las listas de hoy
 			listaTareas = taskService.findTodayTasksByUserId(user.getId());
 			setListOfTasks(new TaskList(listaTareas));
-
 			Log.debug("Today list of tasks refreshed");
 		} catch (BusinessException e) {
 			Log.debug(e);
@@ -112,7 +111,6 @@ public class BeanTasks implements Serializable {
 			// Metemos en la lista de tareas las listas de week
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
 			setListOfTasks(new TaskList(listaTareas));
-			
 			Log.debug("Week list of tasks refreshed");
 		} catch (BusinessException e) {
 			Log.debug(e);

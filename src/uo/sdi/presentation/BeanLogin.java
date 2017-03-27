@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import alb.util.log.Log;
+import alb.util.log.LogLevel;
 import uo.sdi.business.Services;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessCheck;
@@ -32,6 +33,7 @@ public class BeanLogin implements Serializable {
 		UserService userService = Services.getUserService();
 		User user = null;
 		try {
+			Log.setLogLevel(LogLevel.DEBUG);
 			user = userService.findLoggableUser(getLogin());
 			Log.debug("User "+ login +" found in database");
 		} catch (BusinessException b) {
