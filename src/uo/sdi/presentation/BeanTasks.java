@@ -71,7 +71,7 @@ public class BeanTasks implements Serializable {
 
 			setListOfTasks(new TaskList(listaTareas));
 			
-			Log.info("Inbox list of tasks refreshed");
+			Log.debug("Inbox list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -88,7 +88,7 @@ public class BeanTasks implements Serializable {
 
 			setListOfTasks(new TaskList(listaTareas));
 			
-			Log.info("Today list of tasks refreshed");
+			Log.debug("Today list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -104,7 +104,7 @@ public class BeanTasks implements Serializable {
 			listaTareas = taskService.findWeekTasksByUserId(user.getId());
 
 			setListOfTasks(new TaskList(listaTareas));
-			Log.info("Week list of tasks refreshed");
+			Log.debug("Week list of tasks refreshed");
 			return "exito";
 		} catch (BusinessException e) {
 			Log.error(e);
@@ -117,7 +117,7 @@ public class BeanTasks implements Serializable {
 		try {
 			for (Task t : selectedTasks) {
 				taskService.markTaskAsFinished(t.getId());
-				Log.info("Finished task: "+ task.getTitle());
+				Log.debug("Finished task: "+ task.getTitle());
 			}	
 			forceUpdateList();		
 		} catch (BusinessException e) {
@@ -149,7 +149,7 @@ public class BeanTasks implements Serializable {
 		TaskService taskService = Services.getTaskService();
 		try {
 			taskService.createTask(task);
-			Log.info("Added task: "+task.getTitle());
+			Log.debug("Added task: "+task.getTitle());
 			this.currentList = resultado;
 			forceUpdateList(); // Actualizamos las listas de db
 			clearFields();     // Limpiamos los campos del formulario
@@ -174,7 +174,7 @@ public class BeanTasks implements Serializable {
 		// Task is updated in db
 		try {
 			taskService.updateTask(task);
-			Log.info("Edited task: "+task.getTitle());
+			Log.debug("Edited task: "+task.getTitle());
 			forceUpdateList();
 		} catch (BusinessException e) {
 			Log.error(e);

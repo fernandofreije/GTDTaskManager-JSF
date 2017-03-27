@@ -49,7 +49,7 @@ public class BeanUser implements Serializable {
 		}
 		//If user is already registered.
 		if (user != null){
-			Log.info("User "+ login +" is already registered");
+			Log.debug("User "+ login +" is already registered");
 			BusinessCheck.showBusinessError(MessageProvider.getValue("userAlreadyExist"));
 			return null;
 		}
@@ -60,7 +60,7 @@ public class BeanUser implements Serializable {
 		cloneUser.setPassword(getPassword());
 		try {
 			userService.registerUser(cloneUser);
-			Log.info("New user "+ user +" successfully registered");
+			Log.debug("New user "+ user +" successfully registered");
 			BusinessCheck.showBusinessInfo(MessageProvider.getValue("registerOk"));
 		} catch (BusinessException b) {
 			Log.error(b);
@@ -78,7 +78,7 @@ public class BeanUser implements Serializable {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(false);
 		session.invalidate();
-		Log.info("User "+login+" logout" );
+		Log.debug("User "+login+" logout" );
 		return "exito";
 	}
 
