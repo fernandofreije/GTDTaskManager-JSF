@@ -38,14 +38,6 @@
 	</managed-bean>
 
 	<navigation-rule>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/error.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
-	<navigation-rule>
 		<from-view-id>/register.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{user.signUp}</from-action>
@@ -132,17 +124,7 @@
 	<navigation-rule>
 		<from-view-id>/restrictedAdmin/panelAdmin.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{users.deleteUsers}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restrictedAdmin/panelAdmin.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{users.toggleActiveUser}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restrictedAdmin/panelAdmin.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{user.logout}</from-action>
+			<from-action>#{login.logout}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
@@ -151,7 +133,7 @@
 	<navigation-rule>
 		<from-view-id>/restricted/*</from-view-id>
 		<navigation-case>
-			<from-action>#{user.logout}</from-action>
+			<from-action>#{login.logout}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
