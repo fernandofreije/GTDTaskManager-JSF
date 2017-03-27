@@ -1,36 +1,34 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
-<f:view locale="#{settings.locale}">
-	<h:head>
-		<title>#{msgs.tituloHead}</title>
-	</h:head>
-	<h:body>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-inicio.xhtml">
+	<ui:define name="cuerpo">
 		<h:form id="registerForm">
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
 			<p:panelGrid columns="2" styleClass="formTable">
 				<p:outputLabel value="#{msgs.login}" />
 				<p:inputText value="#{user.login}" label="Login" required="true"
 					requiredMessage="#{msgs.requiredLogin}" id="login" />
 				<p:outputLabel value="#{msgs.email}" />
 				<p:inputText value="#{user.email}" label="Email" required="true"
-					requiredMessage="#{msgs.requiredEmail}" id="email"/>
+					requiredMessage="#{msgs.requiredEmail}" id="email" />
 				<p:outputLabel for="pwd1" value="#{msgs.password}" />
 				<p:password id="pwd1" label="Password" value="#{user.password}"
 					required="true" requiredMessage="#{msgs.requiredPassword}"
 					feedback="true" match="pwd2"
-					validatorMessage="#{msgs.matchPassword}"/>
-			 <p:outputLabel for="
+					validatorMessage="#{msgs.matchPassword}" />
+				<p:outputLabel for="
 					pwd2" value="#{msgs.repeatPassword}" />
 				<p:password id="pwd2" label="Repeated password"
 					value="#{user.repeatPassword}" required="true"
 					requiredMessage="#{msgs.requiredPassword2}" feedback="true"
-					validatorMessage="#{msgs.matchPassword}"/>
+					validatorMessage="#{msgs.matchPassword}" />
 			</p:panelGrid>
-			<p:commandButton id="registerButton" value="#{msgs.signUp}" action="#{user.signUp}" />
+			<p:commandButton id="registerButton" value="#{msgs.signUp}"
+				action="#{user.signUp}" />
 		</h:form>
-	</h:body>
-</f:view>
-</html>
+	</ui:define>
+</ui:composition>
