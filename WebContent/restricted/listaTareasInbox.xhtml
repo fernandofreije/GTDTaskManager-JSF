@@ -1,59 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
-
-<f:view locale="#{settings.locale}">
-	<h:head>
-		<title>#{msgs.tituloHead}</title>
-	</h:head>
-	<h:body>
-		<p:layout style="width:100%;height:100%;">
-			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
-				<h:form id="formMenu">
-					<p:menu toggleable="true">
-						<p:submenu label="#{msgs.tasks}">
-						<p:menuitem value="#{msgs.addTask}"
-									action="añadirTarea.xhtml"
-									id="goToAddTask" icon="fa fa-plus" />
-						</p:submenu>
-						<p:submenu label="#{msgs.lists}">
-							<p:menuitem value="#{msgs.inbox}"
-								action="#{tasks.setTasksInbox}"
-								update=":listTasksFormInbox"
-								id="goToInbox" icon="fa fa-list"/>
-							<p:menuitem value="#{msgs.today}"
-								action="#{tasks.setTasksToday}"
-								update=":listTasksFormInbox"
-								id="goToToday" icon="fa fa-list"/>
-							<p:menuitem value="#{msgs.week}" 
-							action="#{tasks.setTasksWeek}"
-								update=":listTasksFormInbox"
-								id="goToWeek" icon="fa fa-list"/>
-						</p:submenu>
-						<p:submenu label="#{msgs.cambiarIdioma}">
-							<p:menuitem value="#{msgs.enlaceIdiomaES}"
-								actionListener="#{settings.setSpanish}"
-								update=":formMenu: :listTasksFormInbox"
-								id="cambiarIdiomaES">
-							</p:menuitem>
-							<p:menuitem value="#{msgs.enlaceIdiomaEN}"
-								actionListener="#{settings.setEnglish}"
-								update=":formMenu: :listTasksFormInbox"
-								id="cambiarIdiomaEN">
-							</p:menuitem>
-						</p:submenu>
-						<p:submenu label="#{login.login}">
-							<p:menuitem id="signOutLink" value="#{msgs.signOut}" action="#{user.logout}"
-								icon="fa fa-sign-out" />
-						</p:submenu>
-					</p:menu>
-				</h:form>
-			</p:layoutUnit>
-			<p:layoutUnit position="center">		
-				<h:form id="listTasksFormInbox">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="listTasksFormInbox">
 					<p:remoteCommand name="onCellEdit" update=":listTasksFormInbox:tasksTable" />
 					<p:dataTable id="tasksTable" value="#{tasks.listOfTasks}" var="t"
 						styleClass="table table-striped" style="width:80%" rows="8"
@@ -135,8 +87,5 @@
 						actionListener="#{tasks.finishTasks()}"
 						styleClass="ui-priority-primary" update="tasksTable" />
 				</h:form>
-			</p:layoutUnit>
-		</p:layout>
-	</h:body>
-</f:view>
-</html>
+	</ui:define>
+</ui:composition>

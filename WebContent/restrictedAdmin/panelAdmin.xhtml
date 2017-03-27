@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:o="http://omnifaces.org/ui">
 
 <o:importConstants type="uo.sdi.dto.types.UserStatus" />
 <f:view locale="#{settings.locale}">
@@ -14,6 +16,9 @@
 		<h:outputScript library="omnifaces" name="fixviewstate.js"
 			target="head" />
 		<p:layout style="width:100%;height:100%;">
+		<p:layoutUnit position="north" size="100" >
+				<h1 style="text-align: center;">#{msgs.tituloHead}</h1>
+			</p:layoutUnit>
 			<p:layoutUnit position="west" size="250" minSize="200" maxSize="400">
 				<h:form id="formMenu">
 					<p:menu toggleable="true">
@@ -95,6 +100,9 @@
 						</f:facet>
 					</p:dataTable>
 				</h:form>
+			</p:layoutUnit>
+			<p:layoutUnit position="south" size="100" >
+				<ui:include src="/snippets/pie.xhtml" />
 			</p:layoutUnit>
 		</p:layout>
 	</h:body>

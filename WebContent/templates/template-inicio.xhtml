@@ -10,9 +10,30 @@
 		<title>#{msgs.tituloHead}</title>
 	</h:head>
 	<h:body>
-		<h1>#{msgs.tituloHead}</h1>
-		<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
-		<ui:include src="/snippets/pie.xhtml"/>
+		<p:layout fullPage="true">
+			<p:layoutUnit position="north" size="100">
+				<h1 style="text-align: center;">#{msgs.tituloHead}</h1>
+			</p:layoutUnit>
+			<p:layoutUnit position="center">
+				<h:form>
+					<p:menubar>
+						<p:submenu label="#{msgs.cambiarIdioma}">
+							<p:menuitem id="cambiarIdiomaES" value="#{msgs.enlaceIdiomaES}"
+								actionListener="#{settings.setSpanish}" update="@all">
+							</p:menuitem>
+							<p:menuitem id="cambiarIdiomaEN" value="#{msgs.enlaceIdiomaEN}"
+								actionListener="#{settings.setEnglish}" update="@all">
+							</p:menuitem>
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+				<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
+			</p:layoutUnit>
+			<p:layoutUnit position="south" size="100">
+				<ui:include src="/snippets/pie.xhtml" />
+			</p:layoutUnit>
+
+		</p:layout>
 	</h:body>
 </f:view>
 </html>
