@@ -78,6 +78,20 @@ public class BeanLogin implements Serializable {
 			return null;
 		}
 	}
+	
+
+	/**
+	 * Through this method the user is logged out of the system.
+	 * 
+	 * @return String containing the next view to show
+	 */
+	public String logout() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		session.invalidate();
+		Log.debug("User " + login + " logged out");
+		return "exito";
+	}
 
 
 	public String getLogin() {
