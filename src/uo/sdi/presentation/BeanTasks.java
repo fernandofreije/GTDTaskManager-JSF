@@ -58,7 +58,7 @@ public class BeanTasks implements Serializable {
 	 * Method to update the list of tasks of inbox whenever an operation is
 	 * performed in the system
 	 */
-	public void setTasksInbox() {
+	public String setTasksInbox() {
 		TaskService taskService = Services.getTaskService();
 		try {
 			List<Task> listaTareas = new ArrayList<Task>();
@@ -79,13 +79,14 @@ public class BeanTasks implements Serializable {
 		} catch (BusinessException e) {
 			Log.debug(e);
 		}
+		return "exito";
 	}
 	
 	/**
 	 * Method to update the list of tasks of today whenever an operation is
 	 * performed in the system
 	 */
-	public void setTasksToday() {
+	public String setTasksToday() {
 		currentList = "today";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
@@ -97,13 +98,14 @@ public class BeanTasks implements Serializable {
 		} catch (BusinessException e) {
 			Log.debug(e);
 		}
+		return "exito";
 	}
 	
 	/**
 	 * Method to update the list of tasks of week whenever an operation is
 	 * performed in the system
 	 */
-	public void setTasksWeek() {
+	public String setTasksWeek() {
 		currentList = "week";
 		TaskService taskService = Services.getTaskService();
 		List<Task> listaTareas;
@@ -115,6 +117,7 @@ public class BeanTasks implements Serializable {
 		} catch (BusinessException e) {
 			Log.debug(e);
 		}
+		return "exito";
 	}
 	
 	/**
